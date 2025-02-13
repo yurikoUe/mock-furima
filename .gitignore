@@ -1,1 +1,19 @@
 .DS_Store
+
+# 追加
+# データベース関連
+*.sql
+*.sql.gz
+*.dump
+/db_data/
+docker/mysql/data/
+docker/nginx/logs/
+
+
+# Docker関連の不要ファイル
+docker-compose.override.yml
+docker/logs/
+docker/tmp/
+
+# macOSが自動生成する隠しファイル
+.DS_Store

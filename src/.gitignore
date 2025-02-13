@@ -23,8 +23,9 @@ yarn-error.log
 *.sql.gz
 *.dump
 /db_data/
-docker/mysql/data/*
+docker/mysql/data/
 docker/nginx/logs/
+
 
 # Docker関連の不要ファイル
 docker-compose.override.yml
