@@ -52,6 +52,31 @@ DB_PASSWORD=laravel_pass
 
 `php artisan db:seed`
 
+## メール認証の設定
+
+このアプリケーションでは、メール認証が必要です。ユーザーが登録後、「メール認証」を完了するまで、ログインできないように設定されています。以下の手順でメール認証を使用するための設定を行ってください。
+
+1. `.env` ファイルで、以下のメール関連の設定を行います。
+
+    ```env
+    MAIL_MAILER=smtp
+    MAIL_HOST=mock-furima-mailhog-1  # Dockerコンテナ名（環境によって異なる場合があります）
+    MAIL_PORT=1025
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS=no-reply@yourapp.local  # 必要に応じて変更
+    MAIL_FROM_NAME="${APP_NAME}"
+    ```
+
+    **注意:** `MAIL_HOST` は、Mailhogのコンテナ名で設定してください。`docker ps` コマンドでMailhogのコンテナ名（例: `mock-furima-mailhog-1`）を確認できます。
+
+2. 認証方法
+- メール認証機能を動作させるためには、ユーザーが登録後に受信したメール内のリンクをクリックして、認証を完了する必要があります。Mailhogのウェブインターフェース (`http://localhost:8025`) でメールを確認できます。
+
+3. メール認証ミドルウェアの設定
+- app/Providers/FortifyServiceProvider.phpにおいて、メール認証が未完了のユーザーがログインできないように設定されています。authenticateUsingメソッドにより、メール認証されていないユーザーはログインできません。
+
 
 ## 使用技術
 - **Laravel**: 8.75
@@ -65,7 +90,7 @@ DB_PASSWORD=laravel_pass
 
 以下は、プロジェクトのER図です。
 
-![ER図](assets/images/er-diagram.png)
+![ER図](src/public/er-diagram.png)
 
 
 ## URL
