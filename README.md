@@ -65,7 +65,7 @@ DB_PASSWORD=laravel_pass
     MAIL_USERNAME=null
     MAIL_PASSWORD=null
     MAIL_ENCRYPTION=null
-    MAIL_FROM_ADDRESS=no-reply@yourapp.local  # 必要に応じて変更
+    MAIL_FROM_ADDRESS=no-reply@furimapp.local  # 必要に応じて変更
     MAIL_FROM_NAME="${APP_NAME}"
     ```
 
@@ -74,8 +74,8 @@ DB_PASSWORD=laravel_pass
 2. 認証方法
 - メール認証機能を動作させるためには、ユーザーが登録後に受信したメール内のリンクをクリックして、認証を完了する必要があります。Mailhogのウェブインターフェース (`http://localhost:8025`) でメールを確認できます。
 
-3. メール認証ミドルウェアの設定
-- app/Providers/FortifyServiceProvider.phpにおいて、メール認証が未完了のユーザーがログインできないように設定されています。authenticateUsingメソッドにより、メール認証されていないユーザーはログインできません。
+3. ログインの制御確認
+- usersテーブルのemail_verified_atカラムが null の場合、ログインできません。登録後、認証をすることにより、email_verified_atカラムがに認証時の時間が入ります。これらは、app/Providers/FortifyServiceProvider.phpにおいて、メール認証が未完了のユーザーがログインできないように設定されています。authenticateUsingメソッドにより、メール認証されていないユーザーはログインできません。
 
 
 ## 使用技術
