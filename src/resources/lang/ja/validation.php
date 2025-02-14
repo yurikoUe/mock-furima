@@ -129,9 +129,18 @@ return [
     |
     */
 
+    // 'custom' => [
+    //     'attribute-name' => [
+    //         'rule-name' => 'custom-message',
+    //     ],
+    // ],
+
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'email' => 'メールアドレスは有効な形式で入力してください。',
+        ],
+        'password' => [
+            'min' => 'パスワードは8文字以上で入力してください。',
         ],
     ],
 
