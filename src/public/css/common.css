@@ -1,3 +1,5 @@
+
+
 .header {
     background: #000;
 }
@@ -5,13 +7,15 @@
 .header__inner {
     margin: 0 auto;
     padding: 10px 15px;
-    max-width: 1230px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .header-utilities {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .header__logo {
@@ -22,13 +26,14 @@
 }
 
 .header-utilities nav {
-    width: 18%;
+    width: auto;
 }
 
 .header-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .header-nav__link {
@@ -44,101 +49,3 @@
     cursor: pointer;
 }
 
-/* content共通 */
-.container {
-    text-align: center;
-    margin: 0 auto;
-    /* レスポンシブ調整用に変更 */
-    padding: 0 15px;
-}
-
-/* フォームの幅を調整 */
-.form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.form__group {
-    padding: 5px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.form__label {
-    display: block;
-    font-weight: bold;
-}
-
-.form__input {
-    width: 100%;
-    padding: 5px;
-}
-
-.submit-btn {
-    width: 100%;
-    border: none;
-    background-color: red;
-    color: white;
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-/* ログインリンク */
-.login-link {
-    font-size: 14px;
-    color: cornflowerblue;
-    text-decoration: none;
-}
-
-.error-message {
-    color: red;
-}
-
-/* PC用レスポンシブ (1400px - 1540px) */
-@media (min-width: 1400px) and (max-width: 1540px) {
-    .header__inner {
-        padding: 10px 30px;
-    }
-
-    .container {
-        width: 70%;
-    }
-
-    .form {
-        width: 80%;
-    }
-}
-
-/* タブレット用レスポンシブ (768px - 850px) */
-@media (min-width: 768px) and (max-width: 850px) {
-    .header__inner {
-        padding: 10px 20px;
-    }
-
-    .container {
-        width: 90%;
-    }
-
-    .form {
-        width: 100%;
-    }
-}
-
-/* モバイル用レスポンシブ (767px以下) */
-@media (max-width: 767px) {
-    .container {
-        width: 100%;
-        padding: 0 10px;
-    }
-
-    .form {
-        width: 100%;
-    }
-
-    .submit-btn {
-        padding: 12px;
-    }
-}

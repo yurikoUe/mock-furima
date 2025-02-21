@@ -43,4 +43,9 @@ class Product extends Model
     {
         return $this->hasOne(Order::class);
     }
+
+    public function isFavoritedBy(User $user)
+    {
+        return $this->favorites()->where('user_id', $user->id)->exists();
+    }
 }

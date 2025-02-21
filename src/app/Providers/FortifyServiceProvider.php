@@ -8,12 +8,13 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
-use App\Http\Requests\LoginRequest;
 use App\Models\User;
+
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -46,16 +47,17 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-        //メール認証が完了していないユーザーはログイン不可
+        // メール認証処理
         Fortify::authenticateUsing(function (Request $request) {
+
             $user = User::where('email', $request->email)->first();
 
+            // メール認証が完了していない場合はログイン不可
             if ($user && !$user->hasVerifiedEmail()) {
-                abort(403, 'メール認証を完了してください。');
+                return null;
             }
 
             return $user;
         });
-
     }
 }
