@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Product;
 
 class ProfileController extends Controller
 {
+    public function show()
+    {
+        $user = auth()->user();
+        $sellingProducts = Product::where('user_id', $user->id)->get();
+        $purchasedProducts = Order::where('user_id', $user->id)
+                            ->with('product')  // 購入した商品情報も一緒に取得
+                            ->get();
+        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts'));
+    }
+
     public function edit()
     {
         return view('profile-edit');

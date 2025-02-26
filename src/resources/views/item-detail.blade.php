@@ -12,7 +12,7 @@
     
     <div class="product-detail__info">
         <h1 class="product-detail__name">{{ $product->name }}</h1>
-        
+        <p>{{ $product->brand->name }}</p>
         <p class="product-detail__price">¥{{ number_format($product->price) }}(税込)</p>
         <div class="product-detail__icon">
 
@@ -20,23 +20,27 @@
             <div class="product-detail__favorites">
                 {{-- ★ 未ログイン時のスターアイコン表示 --}}
                 @guest
-                    <span class="material-icons">star_outline</span>
+                    <img src="{{ asset('storage/icons/star.svg') }}" alt="Star Outline" class="favorite-icon">
                 @endguest
 
                 {{-- ★ ログインユーザーのいいねボタン --}}
                 @auth
                     @if($product->isFavoritedBy(Auth::user()))
+                    
                         <form action="{{ route('favorite.destroy', $product->id) }}" method="POST" style="display:inline;">
                             @csrf
-                            <button type="submit" style="background:none; border:none; cursor:pointer; display:inline-flex; align-items:center;">
-                                <span class="material-icons" style="color: gold;">star</span>
+                            <button type="submit"
+                                style="background:none; border:none; cursor:pointer; align-items:center;">
+                                <img src="{{ asset('storage/icons/gold-star.svg') }}" alt="Star Outline" class="favorite-icon">
                             </button>
                         </form>
                     @else
+                    
                         <form action="{{ route('favorite.store', $product->id) }}" method="POST" style="display:inline;">
                             @csrf
-                            <button type="submit" style="background:none; border:none; cursor:pointer; display:inline-flex; align-items:center;">
-                                <span class="material-icons">star_outline</span>
+                            <button type="submit" 
+                            style="background:none; border:none; cursor:pointer;">
+                                <img src="{{ asset('storage/icons/star.svg') }}" alt="Star Outline" class="favorite-icon">
                             </button>
                         </form>
                     @endif
@@ -46,22 +50,18 @@
             </div>
 
             <div class="product-detail__comments">
-                    <span class="material-icons">chat_bubble_outline</span>
+                    <img src="{{ asset('storage/icons/comment.svg') }}" alt="Star Outline" class="favorite-icon">
                     <p>{{ $product->comments()->count() }}</p>
             </div>
         </div>
+        
         <!-- 購入手続き -->
-        @if (!$sold)
+        @if (!$isSold)
             <a href="{{ route('purchase', ['item_id' => $product->id]) }}" class="product-detail__purchase-button">
                 購入手続きへ
             </a>
-        @endif
-        <!-- 商品が注文されている場合 -->
-        @php
-            $sold = \App\Models\Order::where('product_id', $product->id)->exists();
-        @endphp
-        @if ($sold)
-            <span class="product-detail__sold">Sold</span>
+        @else
+            <span class="product-detail__sold">SOLD</span>
         @endif
 
         <h2>商品説明</h2>
@@ -97,11 +97,11 @@
         <h3 class="comment__form-title">商品へのコメント</h3>
         <form action="{{ route('product.comment', $product->id) }}" method="POST" class="comment__form">
             @csrf
-            <textarea name="comment" rows="5"></textarea>
+            <textarea name="comment" rows="5">{{ old('comment') }}</textarea>
             @error('comment')
                 <div class="error-message">{{ $message }}</div>
             @enderror
-            <button type="submit" class="product-detail__comment-submit">コメントを送信する</button>
+            <button type="submit" class="product-detail__comment-submit" onclick="this.disabled=true; this.form.submit();">コメントを送信する</button>
         </form>
 
         

@@ -14,9 +14,15 @@ class ConditionSeeder extends Seeder
      */
     public function run()
     {
-        Condition::create(['name' => '良好']);
-        Condition::create(['name' => '目立った傷や汚れなし']);
-        Condition::create(['name' => 'やや傷や汚れあり']);
-        Condition::create(['name' => '状態が悪い']);
+        $conditions = [
+            '良好',
+            '目立った傷や汚れなし',
+            'やや傷や汚れあり',
+            '状態が悪い',
+        ];
+
+        foreach ($conditions as $condition) {
+            Condition::create(['name' => $condition]);
+        }
     }
 }

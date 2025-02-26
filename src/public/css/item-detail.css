@@ -64,13 +64,18 @@
     justify-content: center;
 }
 
-.material-icons{
-    font-size: 30px;
-    text-align: center;
-    margin: auto;
+.favorite-icon{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 }
 
-
+.product-detail__sold {
+    color: red;
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-top: 10px;
+}
 
 /* 購入ボタンのスタイル */
 .product-detail__purchase-button {
@@ -86,7 +91,7 @@
 
 /* Soldのスタイル */
 .product-detail__sold {
-    color: #757575;
+    color: red;
     font-size: 18px;
     margin-top: 10px;
 }

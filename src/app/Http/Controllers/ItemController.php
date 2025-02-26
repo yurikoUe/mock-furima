@@ -55,8 +55,11 @@ class ItemController extends Controller
     public function show($item_id)
     {
         $product = Product::findOrFail($item_id);
-        $sold = Order::where('product_id', $product->id)->exists();
-        return view('item-detail', compact('product', 'sold'));
+        // 商品が売り切れかどうかチェック（誰かが「完了」状態の注文を持っているか）
+        $isSold = Order::where('product_id', $product->id)
+                    ->where('status', '完了')
+                    ->exists();
+        return view('item-detail', compact('product', 'isSold'));
     }
 
     // 商品コメント保存用のコントローラーアクション

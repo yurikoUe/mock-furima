@@ -14,7 +14,8 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'condition_id',
+        'condition',
+        'brand_id',
         'image',
     ];
 
@@ -27,9 +28,9 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function condition()
+    public function brand()
     {
-        return $this->belongsTo(Condition::class);
+        return $this->belongsTo(Brand::class);
     }
     public function comments()
     {
@@ -43,8 +44,11 @@ class Product extends Model
     {
         return $this->hasOne(Order::class);
     }
-
-    public function isFavoritedBy(User $user)
+    public function condition()
+        {
+            return $this->belongsTo(Condition::class);
+        }
+    public function isFavoritedBy($user)
     {
         return $this->favorites()->where('user_id', $user->id)->exists();
     }

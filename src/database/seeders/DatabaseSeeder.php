@@ -14,7 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // 商品の状態（conditions）を先にシーディング
+        // brandsを先にシーディング
+        $this->call(BrandSeeder::class);
+
+        // conditionを先にシーディング
         $this->call(ConditionSeeder::class);
 
         // カテゴリー（categories）を次にシーディング
@@ -23,7 +26,7 @@ class DatabaseSeeder extends Seeder
         // ユーザーをファクトリで作成（10人分）
         User::factory(10)->create();
 
-        // 商品をシーディング（user_id, condition_id を利用）
+        // 商品をシーディング（user_id, brand_id を利用）
         $this->call(ProductSeeder::class);
     }
 }

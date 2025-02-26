@@ -13,19 +13,27 @@ class Order extends Model
         'user_id',
         'product_id',
         'payment_method',
+        'order_address',
+        'order_postal_code',
+        'order_building',
+        'status',
     ];
 
-    public function orderAddress()
-    {
-        return $this->hasOne(OrderAddress::class);
-    }
+    // 支払い方法の選択肢
+    const PAYMENT_METHODS = [
+        'card' => 'クレジットカード',
+        'convenience_store' => 'コンビニ決済'
+    ];
+    
+    // リレーション
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
 }

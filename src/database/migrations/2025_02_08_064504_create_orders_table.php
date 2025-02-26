@@ -18,6 +18,10 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->enum('payment_method', ['card', 'convenience_store']);
+            $table->string('order_address');
+            $table->string('order_postal_code');
+            $table->string('order_building');
+            $table->string('status')->default('未完了');
             $table->timestamps();
         });
     }
