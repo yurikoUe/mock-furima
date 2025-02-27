@@ -13,11 +13,17 @@ class ProfileController extends Controller
     public function show()
     {
         $user = auth()->user();
+        $tab = request('tab', 'sell');  // デフォルトで'sell'タブを選択
+
+        // 出品した商品
         $sellingProducts = Product::where('user_id', $user->id)->get();
+
+        // 購入した商品
         $purchasedProducts = Order::where('user_id', $user->id)
-                            ->with('product')  // 購入した商品情報も一緒に取得
-                            ->get();
-        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts'));
+                                ->with('product')  // 購入した商品情報も一緒に取得
+                                ->get();
+
+        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'tab'));
     }
 
     public function edit()
