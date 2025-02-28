@@ -1,0 +1,67 @@
+.verify {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.verify h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.verify p {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #666;
+}
+
+.verify__alert {
+    padding: 12px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.verify__button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verify__button:hover {
+    background-color: #0056b3;
+}
+
+/* ======== レスポンシブ対応 ======== */
+@media (max-width: 768px) {
+    .verify {
+        padding: 16px;
+        max-width: 95%;
+    }
+
+    .verify h1 {
+        font-size: 20px;
+    }
+
+    .verify p {
+        font-size: 14px;
+    }
+
+    .verify__button {
+        width: 100%;
+        padding: 14px;
+        font-size: 14px;
+    }
+}

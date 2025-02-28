@@ -1,45 +1,47 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/item-detail.css') }}">
+<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endsection
 
 @section('content')
-<h2>マイページだ</h2>
-<div>
-    <div>
-        <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+
+<div class="mypage-header">
+    <div class="mypage-header__info">
+        <div class="mypage-header__image">
+            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+        </div>
+        <p class="mypage-header__name">{{ $user->name }}</p>
     </div>
-    <p>{{ $user->name }}</p>
-    <a href="{{ route('profile.update') }}">プロフィールを編集</a>
+    <a class="mypage-header__ling" href="{{ route('profile.update') }}">プロフィールを編集</a>
 </div>
 
 <!-- タブメニュー -->
-<div class="tab-menu">
-    <a href="{{ url('/mypage?tab=sell') }}" class="tab-link {{ request('tab', 'sell') == 'sell' ? 'active' : '' }}">出品した商品</a>
-    <a href="{{ url('/mypage?tab=buy') }}" class="tab-link {{ request('tab') == 'buy' ? 'active' : '' }}">購入した商品</a>
+<div class="tabs">
+    <a href="{{ url('/mypage?tab=sell') }}" class="tabs__link {{ request('tab', 'sell') == 'sell' ? 'tabs__link--active' : '' }}">出品した商品</a>
+    <a href="{{ url('/mypage?tab=buy') }}" class="tabs__link {{ request('tab') == 'buy' ? 'tabs__link--active' : '' }}">購入した商品</a>
 </div>
 
 <!-- タブのコンテンツ -->
+<!-- 出品した商品 -->
 @if(request('tab', 'sell') == 'sell')
     <div id="selling" class="tab-content">
-        <h3>出品した商品</h3>
-        <div>
-            @foreach($sellingProducts as $product)
+        @foreach($sellingProducts as $product)
+            <div class="tab-content__item">
                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                 <p class="product-list__name">{{ $product->name }}</p>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
+<!-- 購入した商品 -->
 @elseif(request('tab') == 'buy')
     <div id="purchased" class="tab-content">
-        <h3>購入した商品</h3>
-        <div>
-            @foreach($purchasedProducts as $order)
+        @foreach($purchasedProducts as $order)
+            <div class="tab-content__item">
                 <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
                 <p class="product-list__name">{{ $order->product->name }}</p>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
 @endif
 @endsection

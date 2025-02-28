@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/login-register-profile.css') }}">
+<link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')

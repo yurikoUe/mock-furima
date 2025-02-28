@@ -1,0 +1,154 @@
+.mypage-header {
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.mypage-header__info {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.mypage-header__image img{
+    border-radius: 50%;
+    max-width: 120px;
+}
+
+.mypage-header__name {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+.mypage-header__ling {
+    text-decoration: none;
+    color: red;
+    padding: 10px 20px;
+    border-style: solid;
+    border-radius: 10px;
+    font-weight: bold;
+    border-width: 2px;
+}
+
+/* タブレット対応 */
+@media screen and (max-width: 850px) {
+    
+
+    .mypage-header__info {
+        text-align: center;
+        gap: 50px;
+    }
+
+    .mypage-header__image img {
+        max-width: 100px;
+    }
+
+    .mypage-header__name {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+    .mypage-header {
+        gap: 30px;
+    }
+
+    .mypage-header__info {
+        gap: 20px;
+    }
+
+    .mypage-header__image img {
+        max-width: 100px;
+    }
+
+    .mypage-header__name {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .mypage-header__ling {
+        text-decoration: none;
+        color: red;
+        padding: 5px 10px;
+        border-style: solid;
+        border-radius: 10px;
+        font-weight: bold;
+        border-width: 2px;
+        font-size: 18px;
+    }
+}
+
+
+/* タブメニュー */
+.tabs {
+    display: flex;
+    padding-left: 30px;
+    margin: 20px 0;
+    border-bottom: 2px solid #ccc;
+}
+
+.tabs__link {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.tabs__link--active{
+    color: red;
+}
+
+@media screen and (max-width: 767px) {
+    .tabs {
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+    }
+}
+
+/* 商品カード */
+.tab-content {
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.tab-content__item {
+    width: calc(25% - 15px);
+    /* PC: 4列 (余白を考慮) */
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* タブレット用 (3列) */
+@media screen and (max-width: 850px) {
+    .tab-content__item {
+        width: calc(33.333% - 15px);
+    }
+}
+
+/* スマホ用 (2列) */
+@media screen and (max-width: 767px) {
+    .tab-content__item {
+        width: calc(50% - 15px);
+    }
+}
+
+.tab-content__item img {
+    width: 100%;
+    height: auto;
+    /* 画像のアスペクト比を維持 */
+}
+
+.product-list__name {
+    margin: 10px 0 0;
+    font-size: 16px;
+}

@@ -7,17 +7,24 @@
     align-items: center;
 }
 
-.custom-file-input {
+.profile__image img{
+    border-radius: 50%;
+}
+
+.form__file-input {
     display: none;
 }
 
-.custom-file-label {
+.form__file-label {
     padding: 5px 10px;
     color: red;
     border-radius: 4px;
     border-style: solid;
     border-color: red;
     cursor: pointer;
+    position: relative;
+    left: 70%;
+    top: -100px;
 }
 
 .default-profile,
@@ -27,4 +34,40 @@
     height: 150px;
     object-fit: cover;
     /* 画像が歪まないように調整 */
+}
+
+/* タブレット用レスポンシブ (768px - 850px) */
+@media (min-width: 768px) and (max-width: 850px) {
+    .form__file-label {
+        padding: 5px 10px;
+        color: red;
+        border-radius: 4px;
+        border-style: solid;
+        border-color: red;
+        cursor: pointer;
+        display: block;
+        width: 50%;
+        text-align: center;
+        margin: auto;
+        left: auto;
+        top: auto;
+    }
+}
+
+/* モバイル用レスポンシブ (767px以下) */
+@media (max-width: 767px) {
+    .form__file-label {
+        padding: 5px 10px;
+        color: red;
+        border-radius: 4px;
+        border-style: solid;
+        border-color: red;
+        cursor: pointer;
+        display: block;
+        width: 50%;
+        text-align: center;
+        margin: auto;
+        left: auto;
+        top: auto;
+    }
 }

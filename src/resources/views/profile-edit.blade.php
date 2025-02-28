@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/login-register-profile.css') }}">
+<link rel="stylesheet" href="{{ asset('css/form.css') }}">
+<link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
 @endsection
 
 @section('content')
-<div class="container">
-    <h1>プロフィール設定</h1>
 
-    <!-- 成功メッセージの表示 -->
+<!-- 成功メッセージの表示 -->
     @if (session('success'))
         <div style="color: green; font-weight: bold;">
             {{ session('success') }}
         </div>
     @endif
+
+<div class="container">
+    <h1 class="form__title">プロフィール設定</h1>
 
     <!-- プロフィール画像の表示 -->
     <div class="profile__image">
@@ -23,16 +25,16 @@
         @else
             <img src="{{ asset('storage/images/default-profile-image.png') }}" alt="デフォルトプロフィール画像" class="default-profile">
         @endif
-    
+    </div>
 
     <form method="POST" action="/mypage/profile" enctype="multipart/form-data" class="form">
         @csrf
 
         <div class="form__group">
-            <label for="profile_image" class="custom-file-label">画像を選択</label>
-            <input id="profile_image" type="file" name="profile_image" class="custom-file-input" accept="image/jpeg, image/png, image/jpg">
+            <label for="profile_image" class="form__file-label">画像を選択</label>
+            <input id="profile_image" type="file" name="profile_image" class="form__file-input" accept="image/jpeg, image/png, image/jpg">
         </div>
-    </div>
+    
         <div class="form__group">
             <label for="name" class="form__label">ユーザー名</label>
             <input id="name" type="text" name="name" value="{{ old('name', auth()->user()->name) }}" class="form__input">
