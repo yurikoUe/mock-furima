@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\User;
+use App\Models\OrderAddress;
+
 
 class PurchaseController extends Controller
 {
@@ -21,66 +24,28 @@ class PurchaseController extends Controller
         
         // この商品がすでに売り切れかチェック
         $isSold = Order::where('product_id', $product->id)
-                    ->where('status', '完了')
+                    ->whereIn('status', ['決済完了', '決済待機中'])
                     ->exists();
 
         if ($isSold) {
-            return redirect()->route(' purchase', ['id' => $product->id])->with('error', 'この商品はすでに売り切れています。');
+            return redirect()->route(' purchase', ['id' => $product->id])->with('error', '購入されようとした商品はすでに売り切れています。');
         }
         
-        // 配送先住所の変更がある場合、Orderテーブルから最初の住所を取得
-        $orderAddress = session('orderAddress', null);  // セッションから取得
+        // order_addressesテーブルに保存された直近の配送先住所を取得
+        $orderAddress = OrderAddress::where('user_id', $user->id)->latest()->first();
 
-        // もし配送先住所の変更がなければ、ユーザーのデフォルト住所を表示
+        // もし注文履歴がない場合、ユーザーの登録住所をorder_addressesテーブルに保存
         if (!$orderAddress) {
-            $orderAddress = Order::where('user_id', auth()->id())->first();
-
-            // もし注文がない場合、ユーザーのデフォルト住所を表示
-            if (!$orderAddress) {
-                $orderAddress = (object)[
-                    'order_postal_code' => auth()->user()->postal_code,
-                    'order_address' => auth()->user()->address,
-                    'order_building' => auth()->user()->building,
-                ];
-            }
+            $orderAddress = new OrderAddress([
+                'user_id' => $user->id, 
+                'order_postal_code' => $user->postal_code,
+                'order_address' => $user->address,
+                'order_building' => $user->building,
+            ]);
         }
 
         return view('purchase', compact('product', 'paymentMethods', 'orderAddress', 'isSold'));
-    }
-
-
-    public function store(Request $request)
-    {
-        $product = Product::findOrFail($request->product_id);
-
-        // すでに「未完了」の注文があるかチェック
-        $order = Order::where('user_id', auth()->id())
-                    ->where('product_id', $product->id)
-                    ->where('status', '未完了')
-                    ->first();
-
-        // 未完了の注文があれば上書き、なければ新規作成
-        if (!$order) {
-            $order = new Order();
-            $order->user_id = auth()->id();
-            $order->product_id = $product->id;
-        }
-
-        // フォームから送られたデータをセット
-        $order->payment_method = $request->payment_method;
-        $order->order_address = $request->order_address;
-        $order->order_postal_code = $request->order_postal_code;
-        $order->order_building = $request->order_building;
-
-        // **購入完了時にステータスを「完了」に更新**
-        $order->status = '完了';
-
-        $order->save();
-
-        $product->save();
-
-        // 購入完了画面へリダイレクト
-        return redirect()->route('index');
+        
     }
 
     public function showAddressChangeForm($item_id)
@@ -101,19 +66,17 @@ class PurchaseController extends Controller
         // 現在の認証ユーザーを取得
         $user = auth()->user();
 
-        // 新規オーダーを作成し、住所情報を保存
-        $order = new Order();
-        $order->user_id = auth()->id();
-        $order->product_id = $itemId; // 商品IDも指定
-        $order->order_address = $validatedData['order_address'];
-        $order->order_postal_code = $validatedData['order_postal_code'];
-        $order->order_building = $validatedData['order_building'];
-        $order->status = '未完了';  // 注文ステータス（例: 未完了）
+        // 注文に関連する住所情報を order_addresses テーブルに保存
+        $orderAddress = new OrderAddress();
+        $orderAddress->user_id = auth()->id();
+        $orderAddress->order_address = $validatedData['order_address'];
+        $orderAddress->order_postal_code = $validatedData['order_postal_code'];
+        $orderAddress->order_building = $validatedData['order_building'];
 
-        $order->save();
+        $orderAddress->save(); // 住所情報を保存
 
         return redirect()->route('purchase', ['item_id' => $itemId])
                         ->with('success', '住所が変更されました。')
-                        ->with('orderAddress', $order); 
+                        ->with('orderAddress', $orderAddress); 
     }
 }

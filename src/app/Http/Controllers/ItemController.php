@@ -48,6 +48,13 @@ class ItemController extends Controller
         // 商品を取得
         $products = $query->get();
 
+        // 商品ごとにSOLD判定を追加
+        $products->each(function ($product) {
+            $product->isSold = Order::where('product_id', $product->id)
+                                    ->whereIn('status', ['決済完了', '決済待機中'])
+                                    ->exists();
+        });
+
         // 商品データと検索ワードをビューに渡す
         return view('index', compact('products', 'keyword'));
     }
@@ -55,9 +62,9 @@ class ItemController extends Controller
     public function show($item_id)
     {
         $product = Product::findOrFail($item_id);
-        // 商品が売り切れかどうかチェック（誰かが「完了」状態の注文を持っているか）
+        // 商品が売り切れかどうかチェック（「決済完了」または「決済待機中」の注文があるか）
         $isSold = Order::where('product_id', $product->id)
-                    ->where('status', '完了')
+                    ->whereIn('status', ['決済完了', '決済待機中'])
                     ->exists();
         return view('item-detail', compact('product', 'isSold'));
     }

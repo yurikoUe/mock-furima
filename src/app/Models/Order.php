@@ -13,16 +13,14 @@ class Order extends Model
         'user_id',
         'product_id',
         'payment_method',
-        'order_address',
-        'order_postal_code',
-        'order_building',
+        'order_address_id',
         'status',
     ];
 
     // 支払い方法の選択肢
     const PAYMENT_METHODS = [
         'card' => 'クレジットカード',
-        'convenience_store' => 'コンビニ決済'
+        'convenience_store' => 'コンビニ決済',
     ];
     
     // リレーション
@@ -34,6 +32,10 @@ class Order extends Model
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function orderAddress()
+    {
+        return $this->belongsTo(OrderAddress::class);
     }
 
 }

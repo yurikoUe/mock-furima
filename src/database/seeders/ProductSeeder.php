@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Product;
-use App\Models\Condition;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Category;
@@ -23,7 +22,6 @@ class ProductSeeder extends Seeder
         // 各テーブルのIDを取得
         $categories = Category::pluck('id', 'name')->toArray();
         $brands = Brand::pluck('id', 'name')->toArray();
-        $conditions = Condition::pluck('id', 'name')->toArray();
 
         // 商品データ
         $products = [
@@ -116,7 +114,7 @@ class ProductSeeder extends Seeder
                 'price' => $productData['price'],
                 'description' => $productData['description'],
                 'image' => $productData['img'],
-                'condition_id' => $conditions[$productData['condition']],
+                'condition' => $productData['condition'], 
                 'brand_id' => collect($brands)->random(), // ランダムにブランドを設定
             ]);
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Category;
-use App\Models\Condition;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
@@ -13,11 +12,17 @@ class ExhibitionController extends Controller
 {
     public function create()
     {
-        $categories = Category::all();  // カテゴリーデータを取得
-        $conditions = Condition::all(); // 商品の状態データを取得
-        $brands = Brand::all();         // ブランドデータを取得
+        $products = Product::all();
+        $categories = Category::all();
+        $brands = Brand::all();
+        $user = auth()->user();
 
-        return view('sell', compact('categories', 'conditions', 'brands'));
+        // profile_completed が false なら住所登録ページにリダイレクト
+        if (!$user->profile_completed) {
+            return redirect()->route('mypage.profile')->with('error', '購入前に住所を登録してください。');
+        }
+
+        return view('sell', compact('products', 'categories', 'brands'));
     }
 
     public function store(Request $request)
@@ -26,7 +31,7 @@ class ExhibitionController extends Controller
             'image' => 'required|image|max:2048',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'condition' => 'required|exists:conditions,id',
+            'condition' => 'required|string',
             'price' => 'required|numeric',
             'brand' => 'required|exists:brands,id',
         ]);
@@ -40,7 +45,7 @@ class ExhibitionController extends Controller
         $product->name = $request->name;
         $product->user_id = auth()->id();
         $product->description = $request->description;
-        $product->condition_id = $request->condition;
+        $product->condition = $request->condition;
         $product->price = $request->price;
         $product->image = $imagePath;
         $product->brand_id = $request->brand;

@@ -6,6 +6,44 @@
 
 @section('content')
 <div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if (session('info'))
+        <div class="alert alert-info">
+            {{ session('info') }}
+        </div>
+    @endif
+
+    @if (session('cancel'))
+        <div class="alert alert-warning">
+            {{ session('cancel') }}
+        </div>
+    @endif
+
+    @if (session('purchase'))
+        <div class="alert alert-warning">
+            {{ session('purchase') }}
+        </div>
+    @endif
+
+
+    @if (session('cancel'))
+        <div class="alert alert-warning">
+            {{ session('cancel') }}
+        </div>
+    @endif
+</div>
+<div>
     <!-- タブ -->
     <div class="tabs">
         <a href="{{ route('index', ['tab' => 'recommend', 'keyword' => request()->get('keyword')]) }}"
@@ -25,11 +63,8 @@
                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                         <p class="product-list__name">{{ $product->name }}</p>
                     </a>
-                    @php
-                        $sold = \App\Models\Order::where('product_id', $product->id)->exists();//商品が注文されているか
-                    @endphp
-                    @if ($sold)
-                        <span class="product-list__sold">Sold</span>
+                    @if ($product->isSold ?? false)
+                        <span class="product-list__sold">SOLD</span>
                     @endif
                 </div>
             @elseif (!auth()->check())

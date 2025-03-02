@@ -30,6 +30,11 @@
                 <h2>配送先</h2>
                 <a class="product-purchase__address-change" href="{{ route('address.change',  ['item_id' => $product->id]) }}">変更する</a>
             </div>
+            @if (session('success'))
+                <div class="alert alert-warning">
+                    {{ session('success') }}
+                </div>
+            @endif
             <table class="product-purchase__address-table">
                 <tr>
                     <td><span>〒</span>{{ $orderAddress->order_postal_code }}</td>
@@ -66,16 +71,20 @@
             </tr>
         </table>
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @if ($isSold)
             <p class="product-purchase__status product-purchase__status--sold">SOLD</p>
         @else
-            <form class="product-purchase__form" method="POST" action="{{ route('order.store',  ['item_id' => $product->id]) }}">
+            <form class="product-purchase__form" method="POST" action="{{ route('checkout') }}">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="payment_method" id="payment_method_input">
-                <input type="hidden" name="order_postal_code" value="{{ $orderAddress->order_postal_code }}">
-                <input type="hidden" name="order_address" value="{{ $orderAddress->order_address }}">
-                <input type="hidden" name="order_building" value="{{ $orderAddress->order_building }}">
+                <input type="hidden" name="order_address_id" value="{{ $orderAddress->id }}">
                 <button class="product-purchase__button" type="submit">購入する</button>
             </form>
         @endif

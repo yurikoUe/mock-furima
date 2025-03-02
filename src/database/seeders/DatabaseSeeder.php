@@ -17,9 +17,6 @@ class DatabaseSeeder extends Seeder
         // brandsを先にシーディング
         $this->call(BrandSeeder::class);
 
-        // conditionを先にシーディング
-        $this->call(ConditionSeeder::class);
-
         // カテゴリー（categories）を次にシーディング
         $this->call(CategorySeeder::class);
 

@@ -50,8 +50,8 @@
         <div>
             <label for="condition">商品の状態</label>
             <select name="condition" id="condition">
-                @foreach($conditions as $condition)
-                    <option value="{{ $condition->id }}">{{ $condition->name }}</option>
+                @foreach($products as $product)
+                    <option value="{{ $product->condition }}">{{ $product->condition }}</option>
                 @endforeach
             </select>
             @error('condition')

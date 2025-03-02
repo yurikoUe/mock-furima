@@ -19,7 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('name', 255);
             $table->text('description');
             $table->integer('price');
-            $table->foreignId('condition_id')->constrained()->cascadeOnDelete();
+            $table->enum('condition', [
+                '良好',
+                '目立った傷や汚れなし',
+                'やや傷や汚れあり',
+                '状態が悪い',]);
             $table->foreignId('brand_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('image', 255);
             $table->timestamps();

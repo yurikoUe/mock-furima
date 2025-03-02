@@ -78,7 +78,7 @@
             </tr>
             <tr>
                 <th>商品の状態</th>
-                <td class="product-detail__condition">{{ $product->condition->name }}</td>
+                <td class="product-detail__condition">{{ $product->condition }}</td>
             </tr>
         </table>
 
