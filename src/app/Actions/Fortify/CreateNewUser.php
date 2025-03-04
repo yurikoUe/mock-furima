@@ -21,29 +21,17 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        // Validator::make($input, [
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => [
-        //         'required',
-        //         'string',
-        //         'email',
-        //         'max:255',
-        //         Rule::unique(User::class),
-        //     ],
-        //     'password' => $this->passwordRules(),
-        // ])->validate();
-
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users'),
-                        'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'], // 正規表現でメールアドレスの形式を厳しくチェック
+                        'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
             'password' => ['required', 'string', 'min:8'],
             'password_confirmation' => ['required', 'same:password'],
         ], [
             'name.required' => 'お名前を入力してください',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => '正しいメールアドレスの形式で入力してください。',
-            'email.regex' => '有効なメールアドレスを入力してください。例: user@example.com', // 新しいエラーメッセージ
+            'email.regex' => '有効なメールアドレスを入力してください。例: user@example.com',
             'email.unique' => 'このメールアドレスは既に登録されています。',
             'password.required' => 'パスワードを入力してください',
             'password.min' => 'パスワードは8文字以上で入力してください。',

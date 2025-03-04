@@ -1,0 +1,11 @@
+.alert {
+    background-color: #fcefad;
+    font-weight: bold;
+    padding: 20px;
+    color: #006400;
+    font-size: 20px;
+}
+
+.alert--error {
+    color: red;
+}

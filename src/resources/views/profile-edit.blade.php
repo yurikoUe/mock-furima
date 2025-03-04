@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/form.css') }}">
 <link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
 @endsection
 
@@ -15,12 +14,11 @@
     @endif
 
 <div class="container">
-    <h1 class="form__title">プロフィール設定</h1>
+    <h1>プロフィール設定</h1>
 
     <!-- プロフィール画像の表示 -->
     <div class="profile__image">
         @if(auth()->user()->profile_image)
-            
             <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="プロフィール画像" class="rounded-circle">
         @else
             <img src="{{ asset('storage/images/default-profile-image.png') }}" alt="デフォルトプロフィール画像" class="default-profile">

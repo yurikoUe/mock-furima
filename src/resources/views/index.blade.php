@@ -2,30 +2,32 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+<link rel="stylesheet" href="{{ asset('css/alert.css') }}">
+
 @endsection
 
 @section('content')
-<div>
+<div class="alert">
     @if (session('success'))
-        <div class="alert alert-success">
+        <div>
             {{ session('success') }}
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger">
+        <div class="alert--error">
             {{ session('error') }}
         </div>
     @endif
 
     @if (session('info'))
-        <div class="alert alert-info">
+        <div>
             {{ session('info') }}
         </div>
     @endif
 
     @if (session('cancel'))
-        <div class="alert alert-warning">
+        <div>
             {{ session('cancel') }}
         </div>
     @endif

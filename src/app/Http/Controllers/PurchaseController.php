@@ -42,6 +42,7 @@ class PurchaseController extends Controller
                 'order_address' => $user->address,
                 'order_building' => $user->building,
             ]);
+            $orderAddress->save();
         }
 
         return view('purchase', compact('product', 'paymentMethods', 'orderAddress', 'isSold'));

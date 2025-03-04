@@ -1,3 +1,84 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.form {
+    width: 80%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.form__group {
+    padding: 5px;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.form__label {
+    display: block;
+    font-weight: bold;
+}
+
+.form__input {
+    width: 100%;
+    padding: 5px;
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+/* ログインリンク */
+.login-link {
+    font-size: 17px;
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+.error-message {
+    color: red;
+}
+
+
+
+/* PC用レスポンシブ (1400px - 1540px) */
+@media (min-width: 1400px) and (max-width: 1540px) {
+    .header__inner {
+        padding: 10px 30px;
+    }
+
+    .container {
+        text-align: center;
+        margin: 0 auto;
+        /* レスポンシブ調整用に変更 */
+        padding: 0 15px;
+        max-width: 1230px;
+        width: 60%;
+    }
+
+    .form {
+        margin-left: 10px;
+        width: 80%;
+    }
+}
+
 .profile__image {
     text-align: left;
     max-width: 600px;

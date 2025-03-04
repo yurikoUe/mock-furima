@@ -1,3 +1,6 @@
+body {
+    font-size: 20px;
+}
 /* 商品詳細のコンテナ */
 .product-detail {
     display: flex;
@@ -121,9 +124,6 @@
     padding: 2px 10px;
 }
 
-
-
-
 .product-detail__comment-title{
     color: #757575;
 }
@@ -146,7 +146,6 @@
     margin-top: 5px;
 }
 
-
 .comment__form-title{
     margin: 5px;
 }
@@ -158,6 +157,7 @@
 .comment__form textarea {
     width: 100%;
     height: 100px;
+    font-size: 18px;
 }
 
 .product-detail__comment-submit {
@@ -165,7 +165,7 @@
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     cursor: pointer;
     width: 100%;
