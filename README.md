@@ -58,9 +58,9 @@ DB_PASSWORD=laravel_pass
 
 1. `.env` ファイルで、以下のメール関連の設定を行います。
 
-    ```env
+    ```php
     MAIL_MAILER=smtp
-    MAIL_HOST=mock-furima-mailhog-1  # Dockerコンテナ名（環境によって異なる場合があります）
+    MAIL_HOST=mock-furima-mailhog-1  #Dockerコンテナ名（環境によって異なる場合があります）
     MAIL_PORT=1025
     MAIL_USERNAME=null
     MAIL_PASSWORD=null
@@ -83,9 +83,9 @@ DB_PASSWORD=laravel_pass
 1. 環境変数の設定
     以下のStripe APIキーを`.env` ファイルに追加してください。
 
-    ```
-    **STRIPE_KEY=**your_stripe_public_key
-    **STRIPE_SECRET=**your_stripe_secret_key
+    ```php
+    STRIPE_KEY=your_stripe_public_key
+    STRIPE_SECRET=your_stripe_secret_key
     ```
     テスト環境では、 Stripeのダッシュボード から取得した テスト用のAPIキー を設定してください。
 
@@ -112,7 +112,7 @@ DB_PASSWORD=laravel_pass
     CVC: 任意の3桁の番号（例: 123）
      ```
 
-    📌 注意点
+    **注意:**
     * テスト環境では 実際の決済は行われません。
     * 本番環境へ移行する際は、 本番用のAPIキーを設定 してください。
 
