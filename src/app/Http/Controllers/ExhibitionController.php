@@ -15,6 +15,7 @@ class ExhibitionController extends Controller
         $products = Product::all();
         $categories = Category::all();
         $brands = Brand::all();
+        $conditions = ['良好', '目立った傷や汚れなし', 'やや傷や汚れあり', '状態が悪い'];
         $user = auth()->user();
 
         // profile_completed が false なら住所登録ページにリダイレクト
@@ -22,7 +23,7 @@ class ExhibitionController extends Controller
             return redirect()->route('mypage.profile')->with('error', '購入前に住所を登録してください。');
         }
 
-        return view('sell', compact('products', 'categories', 'brands'));
+        return view('sell', compact('conditions', 'products', 'categories', 'brands'));
     }
 
     public function store(Request $request)
