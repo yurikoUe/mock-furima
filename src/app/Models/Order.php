@@ -24,7 +24,6 @@ class Order extends Model
     ];
     
     // リレーション
-
     public function user()
     {
         return $this->belongsTo(User::class);

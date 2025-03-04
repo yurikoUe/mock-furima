@@ -11,7 +11,7 @@ use App\Models\OrderAddress;
 
 class PurchaseController extends Controller
 {
-    public function purchase($itemId)
+    public function create($itemId)
     {
         $product = Product::findOrFail($itemId);
         $paymentMethods = Order::PAYMENT_METHODS;
@@ -48,13 +48,13 @@ class PurchaseController extends Controller
         
     }
 
-    public function showAddressChangeForm($item_id)
+    public function editAddress($item_id)
     {
         $product = Product::findOrFail($item_id);
         return view('address-change', compact('product', 'item_id'));
     }
 
-    public function saveAddress(Request $request, $itemId)
+    public function updateAddress(Request $request, $itemId)
     {
         // バリデーション
         $validatedData = $request->validate([
@@ -75,7 +75,7 @@ class PurchaseController extends Controller
 
         $orderAddress->save(); // 住所情報を保存
 
-        return redirect()->route('purchase', ['item_id' => $itemId])
+        return redirect()->route('purchase.create', ['item_id' => $itemId])
                         ->with('success', '住所が変更されました。')
                         ->with('orderAddress', $orderAddress); 
     }

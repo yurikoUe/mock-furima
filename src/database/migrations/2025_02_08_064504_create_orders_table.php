@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('order_address_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
-            $table->enum('payment_method', ['card', 'convenience_store'])->nullable();
+            $table->enum('payment_method', ['card', 'convenience_store']);
             $table->string('status');
             $table->timestamps();
         });

@@ -16,9 +16,9 @@ class CreateOrderAddressesTable extends Migration
         Schema::create('order_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('order_address');  // 配送先住所
-            $table->string('order_postal_code');  // 郵便番号
-            $table->string('order_building')->nullable();  // 建物名（任意）
+            $table->string('order_address');
+            $table->string('order_postal_code');
+            $table->string('order_building');
             $table->timestamps();
         });
     }

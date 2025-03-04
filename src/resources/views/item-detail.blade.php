@@ -57,7 +57,7 @@
         
         <!-- 購入手続き -->
         @if (!$isSold)
-            <a href="{{ route('purchase', ['item_id' => $product->id]) }}" class="product-detail__purchase-button">
+            <a href="{{ route('purchase.create', ['item_id' => $product->id]) }}" class="product-detail__purchase-button">
                 購入手続きへ
             </a>
         @else
@@ -95,7 +95,7 @@
         @endforeach
 
         <h3 class="comment__form-title">商品へのコメント</h3>
-        <form action="{{ route('product.comment', $product->id) }}" method="POST" class="comment__form">
+        <form action="{{ route('product.comment.store', $product->id) }}" method="POST" class="comment__form">
             @csrf
             <textarea name="comment" rows="5">{{ old('comment') }}</textarea>
             @error('comment')

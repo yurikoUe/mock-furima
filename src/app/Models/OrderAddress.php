@@ -17,8 +17,6 @@ class OrderAddress extends Model
     {
         return $this->hasMany(Order::class);
     }
-
-    // User とのリレーション
     public function user()
     {
         return $this->belongsTo(User::class);

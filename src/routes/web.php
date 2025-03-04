@@ -23,12 +23,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sell', [ExhibitionController::class, 'create'])->name('sell.create');
     Route::post('/sell', [ExhibitionController::class, 'store'])->name('sell.store');
 
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('purchase');
-    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('order.store');
-    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'showAddressChangeForm'])->name('address.change');
-    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'saveAddress'])->name('address.save');
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])->name('purchase.create');
+    // Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])->name('address.edit');
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])->name('address.update');
 
-    Route::post('item/{item_id}/comment', [ItemController::class, 'storeComment'])->name('product.comment');
+    Route::post('item/{item_id}/comment', [ItemController::class, 'storeComment'])->name('product.comment.store');
 
     Route::post('/favorite/{product}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::post('/unfavorite/{product}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');

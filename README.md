@@ -27,7 +27,7 @@ mysql:
 `cp .env.example .env`
 
 4. .envファイル内のDBの箇所を以下のように変更
-```
+```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
@@ -58,7 +58,7 @@ DB_PASSWORD=laravel_pass
 
 1. `.env` ファイルで、以下のメール関連の設定を行います。
 
-    ```php
+    ```env
     MAIL_MAILER=smtp
     MAIL_HOST=mock-furima-mailhog-1  #Dockerコンテナ名（環境によって異なる場合があります）
     MAIL_PORT=1025
@@ -83,7 +83,7 @@ DB_PASSWORD=laravel_pass
 1. 環境変数の設定
     以下のStripe APIキーを`.env` ファイルに追加してください。
 
-    ```php
+    ```env
     STRIPE_KEY=your_stripe_public_key
     STRIPE_SECRET=your_stripe_secret_key
     ```

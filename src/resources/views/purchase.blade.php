@@ -28,7 +28,7 @@
         <div class="product-purchase__address">
             <div class="product-purchase__address-header">
                 <h2>配送先</h2>
-                <a class="product-purchase__address-change" href="{{ route('address.change',  ['item_id' => $product->id]) }}">変更する</a>
+                <a class="product-purchase__address-change" href="{{ route('address.edit',  ['item_id' => $product->id]) }}">変更する</a>
             </div>
             @if (session('success'))
                 <div class="alert alert-warning">
