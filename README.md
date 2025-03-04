@@ -75,19 +75,19 @@ DB_PASSWORD=laravel_pass
 - メール認証機能を動作させるためには、ユーザーが登録後に受信したメール内のリンクをクリックして、認証を完了する必要があります。Mailhogのウェブインターフェース (`http://localhost:8025`) でメールを確認できます。
 
 3. ログインの制御確認
-- usersテーブルのemail_verified_atカラムが null の場合、ログインできません。登録後、認証をすることにより、email_verified_atカラムがに認証時の時間が入ります。これらは、app/Providers/FortifyServiceProvider.phpにおいて、メール認証が未完了のユーザーがログインできないように設定されています。authenticateUsingメソッドにより、メール認証されていないユーザーはログインできません。
+- usersテーブルのemail_verified_atカラムが null の場合、ログインできません。登録後、認証をすることにより、email_verified_atカラムがに認証時の時間が入ります。
 
 ## Stripe決済の導入
-本アプリでは Stripe を使用してクレジットカード決済を行います。
+本アプリでは Stripe を使用して決済を行います。
 
 1. 環境変数の設定
     以下のStripe APIキーを`.env` ファイルに追加してください。
 
     ```
-    STRIPE_KEY=your_stripe_public_key
-    STRIPE_SECRET=your_stripe_secret_key
+    **STRIPE_KEY=**your_stripe_public_key
+    **STRIPE_SECRET=**your_stripe_secret_key
     ```
-    本番環境では、 Stripeのダッシュボード から取得した 本番用のAPIキー を設定してください。
+    テスト環境では、 Stripeのダッシュボード から取得した テスト用のAPIキー を設定してください。
 
 2. 決済の流れ
 
@@ -100,7 +100,8 @@ DB_PASSWORD=laravel_pass
     - コンビニ決済の場合
         1. 商品をカートに追加し、支払い方法としてコンビニを選択し、購入
         2. 電話番号を入力（テスト環境では省略可能）
-        3. メールで支払い方法の詳細が届く（テスト環境では省略）
+        3. Stripe API を通じて決済を実行
+        4. メールで支払い方法の詳細が届く（テスト環境では省略）
 
 3. ローカル環境でのテスト
     開発環境では、Stripeの テスト用カード(以下参照）) を使用して決済を試すことができます。
