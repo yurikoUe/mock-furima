@@ -1,11 +1,30 @@
+.alert-container {
+    padding-left: 30px;
+    background-color: #fffacd;
+}
+
 .alert {
-    background-color: #fcefad;
+    font-size: 18px;
     font-weight: bold;
-    padding: 20px;
-    color: #006400;
-    font-size: 20px;
+    padding: 10px;
+}
+
+.alert--success {
+    color: #28a745;
 }
 
 .alert--error {
-    color: red;
+    color: #dc3545;
+}
+
+.alert--info {
+    color: #17a2b8;
+}
+
+.alert--warning {
+    color: #333;
+}
+
+.alert--purchase {
+    color: #6c757d;
 }

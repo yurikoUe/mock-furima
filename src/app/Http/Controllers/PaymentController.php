@@ -10,11 +10,12 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderAddress;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\PurchaseRequest;
 
 
 class PaymentController extends Controller
 {
-    public function checkout(Request $request)
+    public function checkout(PurchaseRequest $request)
     {
         Stripe::setApiKey(config('stripe.secret'));
 
@@ -24,13 +25,7 @@ class PaymentController extends Controller
         $paymentMethod = $request->payment_method;
 
         // 支払い方法を判定
-        if ($paymentMethod === 'card') {
-            $stripePaymentMethod = ['card'];
-        } elseif ($paymentMethod === 'convenience_store') {
-            $stripePaymentMethod = ['konbini'];  // コンビニ決済
-        } else {
-            return back()->with('error', '無効な支払い方法です。');
-        }
+        $stripePaymentMethod = ($paymentMethod === 'card') ? ['card'] : ['konbini'];
 
         // Stripe Customer の作成（ログインユーザーの情報を使用）
         $customer = \Stripe\Customer::create([

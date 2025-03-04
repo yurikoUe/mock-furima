@@ -7,41 +7,35 @@
 @endsection
 
 @section('content')
-<div class="alert">
+<!-- アラート -->
+<div class="alert-container">
     @if (session('success'))
-        <div>
+        <div class="alert alert--success">
             {{ session('success') }}
         </div>
     @endif
 
     @if (session('error'))
-        <div class="alert--error">
+        <div class="alert alert--error">
             {{ session('error') }}
         </div>
     @endif
 
     @if (session('info'))
-        <div>
+        <div class="alert alert--info">
             {{ session('info') }}
         </div>
     @endif
 
     @if (session('cancel'))
-        <div>
+        <div class="alert alert--warning">
             {{ session('cancel') }}
         </div>
     @endif
 
     @if (session('purchase'))
-        <div class="alert alert-warning">
+        <div class="alert alert--purchase">
             {{ session('purchase') }}
-        </div>
-    @endif
-
-
-    @if (session('cancel'))
-        <div class="alert alert-warning">
-            {{ session('cancel') }}
         </div>
     @endif
 </div>

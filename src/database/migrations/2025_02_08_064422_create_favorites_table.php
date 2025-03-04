@@ -19,7 +19,9 @@ class CreateFavoritesTable extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
+
     }
+
 
     /**
      * Reverse the migrations.
@@ -28,6 +30,6 @@ class CreateFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fovorites');
+        Schema::dropIfExists('favorites');
     }
 }

@@ -51,7 +51,6 @@
 .product-list img {
     width: 100%;
     height: auto;
-    /* 画像のアスペクト比を維持 */
 }
 
 .product-list__name {
