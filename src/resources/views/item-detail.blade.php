@@ -46,7 +46,7 @@
                     @endif
                 @endauth
                 {{-- ★ お気に入り数（ログインしていなくても見える） --}}
-                <p>{{ $product->favorites()->count() }}</p>
+                <p>{{ $product->favoritedBy()->count() }}</p>
             </div>
 
             <div class="product-detail__comments">
@@ -87,7 +87,11 @@
         @foreach ($product->comments as $comment)
             <div class="comment">
                 <div class="comment__user">
-                    <img src="{{ asset('storage/' . $comment->user->profile_image) }}" alt="{{ $comment->user->name }}" class="comment__user-image">
+                    @if ($comment->user->profile_image)
+                        <img src="{{ asset('storage/' . $comment->user->profile_image) }}" alt="{{ $comment->user->name }}" class="comment__user-image">
+                    @else
+                        <img src="{{ asset('storage/images/default-profile-image.png') }}" alt="デフォルトプロフィール画像" class="default-profile">
+                    @endif
                     <span class="comment__user-name">{{ $comment->user->name }}</span>
                 </div>
                 <p class="comment__text">{{ $comment->content }}</p>

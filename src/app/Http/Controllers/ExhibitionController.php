@@ -7,6 +7,7 @@ use App\Models\ProductCategory;
 use App\Models\Category;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use App\Http\Requests\ExhibitionRequest;
 
 class ExhibitionController extends Controller
 {
@@ -26,17 +27,8 @@ class ExhibitionController extends Controller
         return view('sell', compact('conditions', 'products', 'categories', 'brands'));
     }
 
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
-        $request->validate([
-            'image' => 'required|image|max:2048',
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'condition' => 'required|string',
-            'price' => 'required|numeric',
-            'brand' => 'required|exists:brands,id',
-        ]);
-
         // 画像の保存
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
@@ -49,7 +41,7 @@ class ExhibitionController extends Controller
         $product->condition = $request->condition;
         $product->price = $request->price;
         $product->image = $imagePath;
-        $product->brand_id = $request->brand;
+        $product->brand_id = $request->brand ? $request->brand : null;
 
         $product->save();  // 明示的に保存
 
@@ -58,7 +50,6 @@ class ExhibitionController extends Controller
 
         // 成功メッセージと共にリダイレクト
         return redirect()->route('index')->with('success', '商品が出品されました！');
-
         
     }
 }

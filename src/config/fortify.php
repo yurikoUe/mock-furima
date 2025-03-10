@@ -157,4 +157,19 @@ return [
         ]),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Redirects After Authentication
+    |--------------------------------------------------------------------------
+    |
+    | After the user is authenticated, they will be redirected to the
+    | specified location. You may change the redirection locations for
+    | various actions like registration and login here.
+    |
+    */
+
+    'redirects' => [
+        'register' => '/login',  // 登録後にリダイレクトされる場所
+    ],
+
 ];

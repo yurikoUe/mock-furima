@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id');
     }
     public function products()
     {

@@ -7,15 +7,6 @@
 @section('content')
 <div class="sell">
     <h1>商品の出品</h1>
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
 
     <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -35,7 +26,7 @@
             </div>
         </label>
         @error('image')
-            <div class="text-danger">{{ $message }}</div>
+            <div class="form__error">{{ $message }}</div>
         @enderror
         
 
@@ -51,7 +42,7 @@
             </div>
             <input type="hidden" id="selected-category" name="category_id[]">  <!-- 配列として送信 -->
             @error('category_id')
-                <div class="text-danger">{{ $message }}</div>
+                <div class="form__error">{{ $message }}</div>
             @enderror
         </div>
         <div>
@@ -63,7 +54,7 @@
                 @endforeach
             </select>
             @error('condition')
-                <div class="text-danger">{{ $message }}</div>
+                <div class="form__error">{{ $message }}</div>
             @enderror
         </div>
         <div>
@@ -75,7 +66,7 @@
                 @endforeach
             </select>
             @error('brand')
-                <div class="text-danger">{{ $message }}</div>
+                <div class="form__error">{{ $message }}</div>
             @enderror
         </div>
 
@@ -83,19 +74,22 @@
         <div>
             <label for="name" class="sell__label">商品名</label>
             <input class="sell__input" type="text" name="name" id="name" value="{{ old('name') }}">
+            @error('name')
+                <div class="form__error">{{ $message }}</div>
+            @enderror
         </div>
         <div>
             <label for="description" class="sell__label">商品の説明</label>
             <input class="sell__input" type="text" name="description" id="description" value="{{ old('description') }}">
-            @error('name')
-                <div class="text-danger">{{ $message }}</div>
+            @error('description')
+                <div class="form__error">{{ $message }}</div>
             @enderror
         </div>
         <div>
             <label for="price" class="sell__label">販売価格</label>
             <input class="sell__input" type="number" name="price" id="price" value="{{ old('price') }}" min="1" placeholder="¥">
             @error('price')
-                <div class="text-danger">{{ $message }}</div>
+                <div class="form__error">{{ $message }}</div>
             @enderror
         </div>
         <button type="submit" class="sell__submit-button">出品する</button>

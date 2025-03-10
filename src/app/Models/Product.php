@@ -32,22 +32,23 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
-    public function comments()
+    function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
     }
     public function order()
     {
         return $this->hasOne(Order::class);
     }
+    public function favoritedBy()
+        {
+            return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id');
+        }
 
-
-    public function isFavoritedBy($user)
+        
+    // ユーザーがこの商品をお気に入りにしているかを確認するメソッド
+    public function isFavoritedBy(User $user)
     {
-        return $this->favorites()->where('user_id', $user->id)->exists();
+        return $this->favoritedBy()->where('user_id', $user->id)->exists();
     }
 }

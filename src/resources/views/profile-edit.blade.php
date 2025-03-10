@@ -31,26 +31,41 @@
         <div class="form__group">
             <label for="profile_image" class="form__file-label">画像を選択</label>
             <input id="profile_image" type="file" name="profile_image" class="form__file-input" accept="image/jpeg, image/png, image/jpg">
+            @error('profile_image')
+                <div class="form__error">{{ $message }}</div>
+            @enderror
         </div>
     
         <div class="form__group">
             <label for="name" class="form__label">ユーザー名</label>
             <input id="name" type="text" name="name" value="{{ old('name', auth()->user()->name) }}" class="form__input">
+            @error('name')
+                <div class="form__error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form__group">
             <label for="postal_code" class="form__label">郵便番号</label>
             <input id="postal_code" type="text" name="postal_code" value="{{ old('postal_code', auth()->user()->postal_code) }}" class="form__input">
+            @error('postal_code')
+                <div class="form__error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form__group">
             <label for="address" class="form__label">住所</label>
             <input id="address" type="text" name="address" value="{{ old('address', auth()->user()->address) }}" class="form__input">
+            @error('address')
+                <div class="form__error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form__group">
             <label for="building" class="form__label">建物名</label>
             <input id="building" type="text" name="building" value="{{ old('building', auth()->user()->building) }}" class="form__input">
+            @error('building')
+                <div class="form__error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div>

@@ -9,7 +9,11 @@
 <div class="mypage-header">
     <div class="mypage-header__info">
         <div class="mypage-header__image">
-            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+            @if(auth()->user()->profile_image)
+                <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="プロフィール画像" class="rounded-circle">
+            @else
+                <img src="{{ asset('storage/images/default-profile-image.png') }}" alt="デフォルトプロフィール画像" class="default-profile">
+            @endif
         </div>
         <p class="mypage-header__name">{{ $user->name }}</p>
     </div>

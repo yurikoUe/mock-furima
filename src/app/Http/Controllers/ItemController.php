@@ -31,7 +31,7 @@ class ItemController extends Controller
         if ($request->get('tab') == 'mylist') {
             // 「マイリスト」の場合
             if (Auth::check()) {
-                $query = Product::whereIn('id', Auth::user()->favorites()->pluck('product_id'));
+                $query = Product::whereIn('id', $user->favorites() ->pluck('product_id'));
             } else {
                 $query = Product::whereRaw('1 = 0'); // 未ログインなら空データを返す
             }

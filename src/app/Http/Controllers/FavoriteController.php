@@ -13,23 +13,21 @@ class FavoriteController extends Controller
     {
         $user = Auth::user();
 
-        // すでにいいねしているか確認
-        if (!$user->favorites()->where('product_id', $product->id)->exists()) {
-            Favorite::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-            ]);
+        // ユーザーがすでにお気に入りにしているか確認
+        if (Auth::user()->favorites()->where('product_id', $product->id)->exists()) {
+            return redirect()->back();
         }
+
+        Auth::user()->favorites()->attach($product->id);
 
         return back();
     }
 
     public function destroy(Product $product)
     {
-        $user = Auth::user();
 
         // いいねが存在する場合は削除
-        $user->favorites()->where('product_id', $product->id)->delete();
+        Auth::user()->favorites()->detach($product->id);
 
         return back();
     }

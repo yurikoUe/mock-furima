@@ -32,6 +32,10 @@
     color: gray;
 }
 
+.form__error {
+    color: red;
+}
+
 /* ボタン */
 .sell__submit-button {
     width: 100%;

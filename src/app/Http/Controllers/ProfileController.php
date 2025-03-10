@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Http\Requests\ProfileRequest;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProfileController extends Controller
 {
@@ -37,18 +40,9 @@ class ProfileController extends Controller
         return view('profile-edit');
     }
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         $user = Auth::user();
-
-        // バリデーション
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
-            'address' => 'required|string|max:255',
-            'building' => 'nullable|string|max:255',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
 
         // 画像がアップロードされた場合の処理
         if ($request->hasFile('profile_image')) {
@@ -63,11 +57,15 @@ class ProfileController extends Controller
         }
 
         // 他の情報を更新
-        $user->name = $request->name;
-        $user->postal_code = $request->postal_code;
-        $user->address = $request->address;
-        $user->building = $request->building;
-        $user->profile_completed = true; // プロフィールが完了したことをマーク
+        $user->update([
+            'name' => $request->name,
+            'postal_code' => $request->postal_code,
+            'address' => $request->address,
+            'building' => $request->building,
+        ]);
+
+        // プロフィール完了フラグを設定
+        $user->profile_completed = true;
         $user->save();
 
         return redirect()->route('mypage.profile')->with('success', 'プロフィールを更新しました！');

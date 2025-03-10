@@ -60,7 +60,7 @@
                         <p class="product-list__name">{{ $product->name }}</p>
                     </a>
                     @if ($product->isSold ?? false)
-                        <span class="product-list__sold">SOLD</span>
+                        <span class="product-list__sold">Sold</span>
                     @endif
                 </div>
             @elseif (!auth()->check())
