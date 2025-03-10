@@ -18,6 +18,8 @@ yarn-error.log
 
 
 # 追加
+.env.testing
+
 # データベース関連
 *.sql
 *.sql.gz
