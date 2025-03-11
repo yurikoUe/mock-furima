@@ -116,6 +116,20 @@ DB_PASSWORD=laravel_pass
     * テスト環境では 実際の決済は行われません。
     * 本番環境へ移行する際は、 本番用のAPIキーを設定 してください。
 
+## PHPunitテストの実行について
+
+プロジェクトのテストを実行するには、まず以下の依存関係をインストールしてください：
+
+外部決済システムStripeを使用しているため、PHPunitテストではMockery が必要です。以下のコマンドでインストールします。
+```
+composer require mockery/mockery --dev
+```
+
+テストを実行するには、以下のコマンドを使用します：
+```
+php artisan test
+```
+
 ## 使用技術
 - **Laravel**: 8.75
 - **Docker**: 最新版

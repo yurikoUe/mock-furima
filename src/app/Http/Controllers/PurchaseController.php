@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\OrderAddress;
+use App\Http\Requests\OrderAddressRequest;
 
 
 class PurchaseController extends Controller
@@ -55,15 +56,8 @@ class PurchaseController extends Controller
         return view('address-change', compact('product', 'item_id'));
     }
 
-    public function updateAddress(Request $request, $itemId)
+    public function updateAddress(OrderAddressRequest $request, $itemId)
     {
-        // バリデーション
-        $validatedData = $request->validate([
-            'order_postal_code' => 'required|string|max:255',
-            'order_address' => 'required|string|max:255',
-            'order_building' => 'nullable|string|max:255',
-        ]);
-
         // 現在の認証ユーザーを取得
         $user = auth()->user();
 

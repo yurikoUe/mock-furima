@@ -13,7 +13,8 @@ class LikeProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_いいねアイコンを押下することによって、いいねした商品として登録できる()
+    /** @test */
+    public function いいねアイコンを押下することによって、いいねした商品として登録できる()
     {
         // ダミーのユーザー、商品、コメントなどを作成
         $user = User::factory()->create(['email_verified_at' => now()]);
