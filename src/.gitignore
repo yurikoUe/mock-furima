@@ -28,7 +28,6 @@ yarn-error.log
 docker/mysql/data/
 docker/nginx/logs/
 
-
 # Docker関連の不要ファイル
 docker-compose.override.yml
 docker/logs/
@@ -36,3 +35,7 @@ docker/tmp/
 
 # macOSが自動生成する隠しファイル
 .DS_Store
+
+# 共有したい画像ファイル
+!storage/app/public/icons/
+!storage/app/public/images/

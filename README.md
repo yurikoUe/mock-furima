@@ -5,15 +5,15 @@
 ### Dockerビルド
 1. プロジェクトのルートディレクトリに移動し、以下のコマンドでクローンします</br>
 HTTP形式：
-`git clone https://github.com/yurikoUe/test2_Mogitate.git`  
+`git clone https://github.com/yurikoUe/mock-furima.git`  
 SSH形式：
-`git clone git@github.com:yurikoUe/test2_Mogitate.git`
+`git clone git@github.com:yurikoUe/mock-furima.git`
 
 2. `docker-compose up -d --build`
 >MacのM1・M2チップのPCの場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示され、ビルドができないことがあります。エラーが発生した場合は、docker-compose.ymlファイルの「mysql」の記述箇所に、platformの項目を追加で記載し、もう一度ビルドしてください。
 ```
 mysql:
-    platform: linux/x86_64（この分を追加）
+    platform: linux/x86_64（この文を追加）
     image: mysql:8.0.26
     environment:
 ```

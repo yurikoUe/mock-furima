@@ -16,7 +16,7 @@
     <div class="header__inner">
       <div class="header__utilities">
         <a class="header__logo" href="/">
-          <img src="{{ asset('storage/images/logo.svg') }}" alt="サイトロゴ">
+          <img src="{{ asset('storage/icons/logo.svg') }}" alt="サイトロゴ">
         </a>
         <!-- 検索フォーム -->
         <form action="{{ route('index') }}" method="GET">

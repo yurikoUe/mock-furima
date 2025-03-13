@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
                 'name' => '腕時計',
                 'price' => 15000,
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
-                'img' => 'images/Armani_Mens_Clock.jpg',
+                'img' => 'image/Armani_Mens_Clock.jpg',
                 'condition' => '良好',
                 'category_names' => ['ファッション']
             ],
@@ -37,7 +37,7 @@ class ProductSeeder extends Seeder
                 'name' => 'HDD',
                 'price' => 5000,
                 'description' => '高速で信頼性の高いハードディスク',
-                'img' => 'images/HDD_Hard_Disk.jpg',
+                'img' => 'image/HDD_Hard_Disk.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'category_names' => ['家電']
             ],
@@ -45,7 +45,7 @@ class ProductSeeder extends Seeder
                 'name' => '玉ねぎ3束',
                 'price' => 300,
                 'description' => '新鮮な玉ねぎ3束のセット',
-                'img' => 'images/iLoveIMG_d.jpg',
+                'img' => 'image/iLoveIMG_d.jpg',
                 'condition' => 'やや傷や汚れあり',
                 'category_names' => ['キッチン']
             ],
@@ -53,7 +53,7 @@ class ProductSeeder extends Seeder
                 'name' => '革靴',
                 'price' => 4000,
                 'description' => 'クラシックなデザインの革靴',
-                'img' => 'images/Leather_Shoes_Product_Photo.jpg',
+                'img' => 'image/Leather_Shoes_Product_Photo.jpg',
                 'condition' => '状態が悪い',
                 'category_names' => ['ファッション']
             ],
@@ -61,7 +61,7 @@ class ProductSeeder extends Seeder
                 'name' => 'ノートPC',
                 'price' => 45000,
                 'description' => '高性能なノートパソコン',
-                'img' => 'images/Living_Room_Laptop.jpg',
+                'img' => 'image/Living_Room_Laptop.jpg',
                 'condition' => '良好',
                 'category_names' => ['家電']
             ],
@@ -69,7 +69,7 @@ class ProductSeeder extends Seeder
                 'name' => 'マイク',
                 'price' => 8000,
                 'description' => '高音質のレコーディング用マイク',
-                'img' => 'images/Music_Mic_4632231.jpg',
+                'img' => 'image/Music_Mic_4632231.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'category_names' => ['家電']
             ],
@@ -77,7 +77,7 @@ class ProductSeeder extends Seeder
                 'name' => 'ショルダーバッグ',
                 'price' => 3500,
                 'description' => 'おしゃれなショルダーバッグ',
-                'img' => 'images/Purse_fashion_pocket.jpg',
+                'img' => 'image/Purse_fashion_pocket.jpg',
                 'condition' => 'やや傷や汚れあり',
                 'category_names' => ['レディース']
             ],
@@ -85,7 +85,7 @@ class ProductSeeder extends Seeder
                 'name' => 'タンブラー',
                 'price' => 500,
                 'description' => '使いやすいタンブラー',
-                'img' => 'images/Tumbler_souvenir.jpg',
+                'img' => 'image/Tumbler_souvenir.jpg',
                 'condition' => '状態が悪い',
                 'category_names' => ['家電', 'キッチン']
             ],
@@ -93,7 +93,7 @@ class ProductSeeder extends Seeder
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'description' => '手動のコーヒーミル',
-                'img' => 'images/Waitress_with_Coffee_Grinder.jpg',
+                'img' => 'image/Waitress_with_Coffee_Grinder.jpg',
                 'condition' => '良好',
                 'category_names' => ['家電', 'キッチン']
             ],
@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
                 'name' => 'メイクセット',
                 'price' => 25000,
                 'description' => '便利なメイクアップセット',
-                'img' => 'images/外出メイクアップセット.jpg',
+                'img' => 'image/Going_out_makeup_set.jpg',
                 'condition' => '目立った傷や汚れなし',
                 'category_names' => ['コスメ']
             ],
