@@ -56,7 +56,7 @@
                 <div class="product-list__item">
                     <!-- 商品詳細ページに遷移 -->
                     <a href="{{ route('product.show', ['item_id' => $product->id]) }}">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                        <img src="{{ asset('storage/' . $product->images) }}" alt="{{ $product->name }}">
                         <p class="product-list__name">{{ $product->name }}</p>
                     </a>
                     @if ($product->isSold ?? false)
@@ -67,7 +67,7 @@
                 <div class="product-list__item">
                     <!-- 商品詳細ページに遷移 -->
                     <a href="{{ route('product.show', ['item_id' => $product->id]) }}">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                        <img src="{{ asset('storage/' . $product->images) }}" alt="{{ $product->name }}">
                         <p class="product-list__name">{{ $product->name }}</p>
                     </a>
                     @php
