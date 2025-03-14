@@ -87,14 +87,14 @@ DB_PASSWORD=laravel_pass
     STRIPE_KEY=your_stripe_public_key
     STRIPE_SECRET=your_stripe_secret_key
     ```
-    APIキーはStripeに登録した後、Stripeのダッシュボード からテスト環境のAPIキーを取得してください（https://dashboard.stripe.com/test/apikeys）。
+    APIキーは、Stripeのダッシュボード からテスト環境のAPIキーを取得してください（https://dashboard.stripe.com/test/apikeys）。
 
-    [Stripe公式サイト](https://stripe.com/jp?utm_campaign=APAC_JP_JA_Search_Brand_Payments-Pure_EXA-21278920274&utm_medium=cpc&utm_source=google&ad_content=714155577511&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gad_source=1&gclid=Cj0KCQjwhMq-BhCFARIsAGvo0Kde-7Fg6U7v2NTt4uBilQa9vI2G0Sk_U19TmXSWLmxrDDyY7Fbv_ncaAnIJEALw_wcB)
+    未登録の人は先に登録が必要です→[Stripe公式サイト](https://stripe.com/jp?utm_campaign=APAC_JP_JA_Search_Brand_Payments-Pure_EXA-21278920274&utm_medium=cpc&utm_source=google&ad_content=714155577511&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gad_source=1&gclid=Cj0KCQjwhMq-BhCFARIsAGvo0Kde-7Fg6U7v2NTt4uBilQa9vI2G0Sk_U19TmXSWLmxrDDyY7Fbv_ncaAnIJEALw_wcB)
 
 
-2. ローカル環境でのテスト（決済）
+2. ローカル環境でのテスト
 
-    開発環境では、Stripeの テスト用カード(以下参照）) を使用して決済を試すことができます。
+    開発環境では、Stripeの テスト用カード(以下参照）を使用して決済を試すことができます。
 
      ```
     カード番号: 4242 4242 4242 4242
@@ -136,7 +136,7 @@ DB_PASSWORD=laravel_pass
         新規でデータベースを作成する際は、権限の問題でrootユーザ（管理者)でログインする必要があります。
 
         ```MySQLコンテナ上
-        $ mysql -u root -p
+        mysql -u root -p
         ```
 
         パスワードを求められるので、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているrootを入力します。
@@ -157,9 +157,9 @@ DB_PASSWORD=laravel_pass
         configディレクトリの中のdatabase.phpを開き、mysqlの配列部分をコピーして、その下に新たにmysql_testを作成します。
         配列の中のdatabase、username、passwordは以下のように変更します。
 
-        **'database' => 'demo_test',**
-        **'username' => 'root',**
-        **'password' => 'root',**
+        **'database' => 'demo_test',** 
+        **'username' => 'root',** 
+        **'password' => 'root',** 
 
         ＜以下、参照＞
 
@@ -183,7 +183,7 @@ DB_PASSWORD=laravel_pass
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        ```database.php
+        ```
 
     3. テスト用の.envファイル作成
 
@@ -191,7 +191,7 @@ DB_PASSWORD=laravel_pass
 
         ```PHPコンテナ上
         cp .env .env.testing
-        ```database.php
+        ```
 
         ファイルの作成ができたたら、.env.testingファイルの文頭部分にあるAPP_ENVとAPP_KEYを以下のように編集します。
 
