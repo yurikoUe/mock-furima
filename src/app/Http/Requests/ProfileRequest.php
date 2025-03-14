@@ -25,7 +25,7 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'], // ハイフン付きの8文字（例: 123-4567）
+            'postal_code' => ['required', 'regex:/^\d{3}-\d{4}$/'], // ハイフン付きの8文字
             'address' => ['required', 'string'],
             'building' => ['required', 'string'],
             'profile_image' => ['nullable', 'image', 'mimes:jpeg,png'], // JPEGまたはPNGのみ
