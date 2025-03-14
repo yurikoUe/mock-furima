@@ -157,9 +157,9 @@ DB_PASSWORD=laravel_pass
         configディレクトリの中のdatabase.phpを開き、mysqlの配列部分をコピーして、その下に新たにmysql_testを作成します。
         配列の中のdatabase、username、passwordは以下のように変更します。
 
-        **'database' => 'demo_test',** 
-        **'username' => 'root',** 
-        **'password' => 'root',** 
+        **'database' => 'demo_test',**  
+        **'username' => 'root',**  
+        **'password' => 'root',**  
 
         ＜以下、参照＞
 
@@ -240,7 +240,7 @@ DB_PASSWORD=laravel_pass
     vendor/bin/phpunit src/tests/Feature/テストファイル名
     ```
 
-    テストファイルは src/tests/Feature/以下にあるので、そちらでファイル名を確認してください。
+    テストファイルは src/tests/Feature/以下にあるので、そちらでファイル名を確認してください。  
 
 
 
