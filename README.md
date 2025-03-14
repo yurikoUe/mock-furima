@@ -87,23 +87,13 @@ DB_PASSWORD=laravel_pass
     STRIPE_KEY=your_stripe_public_key
     STRIPE_SECRET=your_stripe_secret_key
     ```
-    テスト環境では、 Stripeのダッシュボード から取得した テスト用のAPIキー を設定してください。
+    APIキーはStripeに登録した後、Stripeのダッシュボード からテスト環境のAPIキーを取得してください（https://dashboard.stripe.com/test/apikeys）。
 
-2. 決済の流れ
+    [Stripe公式サイト](https://stripe.com/jp?utm_campaign=APAC_JP_JA_Search_Brand_Payments-Pure_EXA-21278920274&utm_medium=cpc&utm_source=google&ad_content=714155577511&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gad_source=1&gclid=Cj0KCQjwhMq-BhCFARIsAGvo0Kde-7Fg6U7v2NTt4uBilQa9vI2G0Sk_U19TmXSWLmxrDDyY7Fbv_ncaAnIJEALw_wcB)
 
-    - クレジットカード決済の場合
-        1. 商品をカートに追加し、支払い方法を選択後、購入ボタンをクリック
-        2. クレジットカード情報を入力
-        3. Stripe API を通じて決済を実行
-        4. 決済成功後、注文が確定し、商品が購入済みとなる
 
-    - コンビニ決済の場合
-        1. 商品をカートに追加し、支払い方法としてコンビニを選択し、購入
-        2. 電話番号を入力（テスト環境では省略可能）
-        3. Stripe API を通じて決済を実行
-        4. メールで支払い方法の詳細が届く（テスト環境では省略）
+2. ローカル環境でのテスト（決済）
 
-3. ローカル環境でのテスト
     開発環境では、Stripeの テスト用カード(以下参照）) を使用して決済を試すことができます。
 
      ```
@@ -116,19 +106,144 @@ DB_PASSWORD=laravel_pass
     * テスト環境では 実際の決済は行われません。
     * 本番環境へ移行する際は、 本番用のAPIキーを設定 してください。
 
+
+3. 決済の流れ
+
+    本アプリでは、クレジットカード決済とコンビニ決済を搭載しており、それぞれで以下のように動作します。
+
+    - クレジットカード決済の場合
+        1. 商品をカートに追加し、支払い方法を選択後、購入ボタンをクリック
+        2. クレジットカード情報を入力
+        3. Stripe API を通じて決済を実行
+        4. 決済成功後、注文が確定し商品が購入済みとなる(Ordersテーブルのstatusが「決済完了」となる)
+
+    - コンビニ決済の場合
+        1. 商品をカートに追加し、支払い方法としてコンビニを選択し、購入ボタンをクリック
+        2. 電話番号を入力
+        3. Stripe API を通じて決済を実行
+        4. Ordersテーブルのstatusが「決済待機中」となる
+        5. メールで支払い方法の詳細が届く（テスト環境では省略）
+        6. Stripeで決済が確認され次第、「決済完了」になる
+
+
+
 ## PHPunitテストの実行について
 
-プロジェクトのテストを実行するには、まず以下の依存関係をインストールしてください：
+1. テスト準備（MySQOにテスト用のデータベースがない人は、以下に従って準備をしてください）
 
-外部決済システムStripeを使用しているため、PHPunitテストではMockery が必要です。以下のコマンドでインストールします。
-```
-composer require mockery/mockery --dev
-```
+    1. MySQLコンテナからMySQLに、rootユーザでログインして、demo_testというデータベースを作成します。
 
-テストを実行するには、以下のコマンドを使用します：
-```
-php artisan test
-```
+        新規でデータベースを作成する際は、権限の問題でrootユーザ（管理者)でログインする必要があります。
+
+        ```MySQLコンテナ上
+        $ mysql -u root -p
+        ```
+
+        パスワードを求められるので、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているrootを入力します。
+
+        MySQLログイン後、以下のコードでdemo_testというデータベースを作成します。
+
+        ```
+        CREATE DATABASE demo_test;
+        ```
+
+        以下のコードで、demo_testが作成されていれば成功です。
+        ```
+        SHOW DATABASES;
+        ```
+    
+    2. configファイルの変更
+
+        configディレクトリの中のdatabase.phpを開き、mysqlの配列部分をコピーして、その下に新たにmysql_testを作成します。
+        配列の中のdatabase、username、passwordは以下のように変更します。
+
+        **'database' => 'demo_test',**
+        **'username' => 'root',**
+        **'password' => 'root',**
+
+        ＜以下、参照＞
+
+        ```database.php
+        'mysql_test' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'demo_test',
+            'username' => 'root',
+            'password' => 'root',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+        ```database.php
+
+    3. テスト用の.envファイル作成
+
+        次に、PHPコンテナにログインし、.envをコピーして.env.testingというファイルを作成しましょう。
+
+        ```PHPコンテナ上
+        cp .env .env.testing
+        ```database.php
+
+        ファイルの作成ができたたら、.env.testingファイルの文頭部分にあるAPP_ENVとAPP_KEYを以下のように編集します。
+
+        ```
+        APP_ENV=test
+        APP_KEY=
+        ```
+
+        次に.env.testingにデータベースの接続情報を以下のように編集してください。
+
+        ```
+        DB_DATABASE=demo_test
+        DB_USERNAME=root
+        DB_PASSWORD=root
+        ```
+
+        先ほど「空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加えるために以下のコマンドを実行します。
+
+        ```
+        php artisan key:generate --env=testing
+        ```
+
+        キャッシュをクリアします。
+        ```
+        php artisan config:clear
+        ```
+
+        マイグレーションコマンドを実行して、テスト用のテーブルを作成します。
+        ```
+        php artisan migrate --env=testing
+        ```
+
+
+2. 外部決済システムStripeを使用しているため、PHPunitテストをするためにMockery が必要です。以下のコマンドでインストールします。
+
+    ```
+    composer require mockery/mockery --dev
+    ```
+
+
+3. テスト実行
+
+    テストは以下のコマンドで実行できます。
+
+    ```
+    vendor/bin/phpunit src/tests/Feature/テストファイル名
+    ```
+
+    テストファイルは src/tests/Feature/以下にあるので、そちらでファイル名を確認してください。
+
+
+
 
 ## 使用技術
 - **Laravel**: 8.75
