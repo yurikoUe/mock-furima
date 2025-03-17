@@ -7,11 +7,11 @@
 @section('content')
 
 <!-- 成功メッセージの表示 -->
-    @if (session('success'))
-        <div style="color: green; font-weight: bold;">
-            {{ session('success') }}
-        </div>
-    @endif
+@if (session('success'))
+    <div style="color: green; font-weight: bold;">
+        {{ session('success') }}
+    </div>
+@endif
 
 <div class="container">
     <h1>プロフィール設定</h1>

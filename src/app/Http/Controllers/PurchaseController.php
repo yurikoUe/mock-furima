@@ -22,7 +22,7 @@ class PurchaseController extends Controller
         if (!$user->profile_completed) {
             return redirect()->route('mypage.profile')->with('error', '購入前に住所を登録してください。');
         }
-        
+
         // この商品がすでに売り切れかチェック
         $isSold = Order::where('product_id', $product->id)
                     ->whereIn('status', ['決済完了', '決済待機中'])
@@ -31,7 +31,7 @@ class PurchaseController extends Controller
         if ($isSold) {
             return redirect()->route(' purchase', ['id' => $product->id])->with('error', '購入されようとした商品はすでに売り切れています。');
         }
-        
+
         // order_addressesテーブルに保存された直近の配送先住所を取得
         $orderAddress = OrderAddress::where('user_id', $user->id)->latest()->first();
 
@@ -47,7 +47,7 @@ class PurchaseController extends Controller
         }
 
         return view('purchase', compact('product', 'paymentMethods', 'orderAddress', 'isSold'));
-        
+
     }
 
     public function editAddress($item_id)

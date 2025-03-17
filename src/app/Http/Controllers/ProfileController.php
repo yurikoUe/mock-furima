@@ -21,7 +21,7 @@ class ProfileController extends Controller
         if (!$user->profile_completed) {
             return redirect()->route('mypage.profile')->with('error', '購入前に住所を登録してください。');
         }
-        
+
         $tab = request('tab', 'sell');  // デフォルトで'sell'タブを選択
 
         // 出品した商品

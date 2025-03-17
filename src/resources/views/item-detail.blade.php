@@ -38,7 +38,7 @@
                     
                         <form action="{{ route('favorite.store', $product->id) }}" method="POST" style="display:inline;">
                             @csrf
-                            <button type="submit" 
+                            <button type="submit"
                             style="background:none; border:none; cursor:pointer;">
                                 <img src="{{ asset('storage/icons/star.svg') }}" alt="Star Outline" class="favorite-icon">
                             </button>
