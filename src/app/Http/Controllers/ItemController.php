@@ -76,9 +76,9 @@ class ItemController extends Controller
         $product = Product::findOrFail($productId);
         // コメントを保存
         $product->comments()->create([
-            'user_id' => auth()->id(), // ログインユーザーのID
-            'product_id' => $productId, // 対象商品のID
-            'content' => $request->comment, // 入力されたコメント
+            'user_id' => auth()->id(),
+            'product_id' => $productId,
+            'content' => $request->comment,
         ]);
 
         // 商品詳細ページにリダイレクト

@@ -12,7 +12,6 @@ body {
 /* 画像のスタイル */
 .product-detail__image {
     flex: 1 1 45%;
-    /* 左側に画像を表示 */
     max-width: 100%;
     text-align: center;
 }
@@ -21,13 +20,11 @@ body {
     width: 100%;
     height: auto;
     object-fit: cover;
-    /* 画像を枠内に収める */
 }
 
 /* 右側の情報部分 */
 .product-detail__info {
     flex: 1 1 50%;
-    /* 右側に情報を表示 */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

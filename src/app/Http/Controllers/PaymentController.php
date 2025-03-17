@@ -36,7 +36,7 @@ class PaymentController extends Controller
         // 商品情報をStripeで作成
         $stripeProduct = \Stripe\Product::create([
             'name' => $product->name,
-            'description' => $product->description, // 商品説明を追加
+            'description' => $product->description,
         ]);
 
         // 価格を指定してStripeの価格を作成

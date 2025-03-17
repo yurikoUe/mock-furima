@@ -123,7 +123,6 @@
 
 .tab-content__item {
     width: calc(25% - 15px);
-    /* PC: 4列 (余白を考慮) */
     text-align: center;
     box-sizing: border-box;
 }
@@ -145,7 +144,6 @@
 .tab-content__item img {
     width: 100%;
     height: auto;
-    /* 画像のアスペクト比を維持 */
 }
 
 .product-list__name {

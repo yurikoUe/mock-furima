@@ -43,7 +43,7 @@ class ExhibitionController extends Controller
         $product->image = $imagePath;
         $product->brand_id = $request->brand ? $request->brand : null;
 
-        $product->save();  // 明示的に保存
+        $product->save();
 
         // 商品とカテゴリーの関連付け
         $product->categories()->attach(array_map('intval', $request->category_id));

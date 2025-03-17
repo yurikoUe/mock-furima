@@ -67,7 +67,6 @@
     .container {
         text-align: center;
         margin: 0 auto;
-        /* レスポンシブ調整用に変更 */
         padding: 0 15px;
         max-width: 1230px;
         width: 60%;
@@ -114,7 +113,6 @@
     width: 150px;
     height: 150px;
     object-fit: cover;
-    /* 画像が歪まないように調整 */
 }
 
 /* タブレット用レスポンシブ (768px - 850px) */

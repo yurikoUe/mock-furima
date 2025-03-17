@@ -80,12 +80,10 @@
 
 .product-purchase__summary tr {
     border-bottom: 1px solid;
-    /* 各行の下に線をつける */
 }
 
 .product-purchase__summary tr:last-child {
     border-bottom: none;
-    /* 最後の行の下の線を消す */
 }
 
 .product-purchase__summary th,

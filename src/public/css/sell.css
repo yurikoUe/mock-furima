@@ -121,22 +121,18 @@
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .sell {
         width: 60%;
-        /* PCサイズでの横幅を少し広げる */
     }
 
     .sell__label {
         font-size: 22px;
-        /* PC画面用のラベルのフォントサイズ */
     }
 
     .sell__section-title {
         font-size: 28px;
-        /* PC画面用のセクションタイトルのフォントサイズ */
     }
 
     .sell__submit-button {
         font-size: 20px;
-        /* PC画面用のボタンのフォントサイズ */
     }
 }
 
@@ -144,22 +140,18 @@
 @media screen and (min-width: 768px) and (max-width: 850px) {
     .sell {
         width: 80%;
-        /* タブレットサイズでの横幅を広げる */
     }
 
     .sell__label {
         font-size: 18px;
-        /* タブレット用のラベルのフォントサイズ */
     }
 
     .sell__section-title {
         font-size: 24px;
-        /* タブレット用のセクションタイトルのフォントサイズ */
     }
 
     .sell__submit-button {
         font-size: 16px;
-        /* タブレット用のボタンのフォントサイズ */
     }
 
     .category-buttons {
@@ -168,7 +160,6 @@
 
     .category-btn {
         padding: 5px 15px;
-        /* ボタンのパディングを調整 */
     }
 }
 
@@ -176,22 +167,18 @@
 @media screen and (max-width: 768px) {
     .sell {
         width: 90%;
-        /* スマホサイズでの横幅を広げる */
     }
 
     .sell__label {
         font-size: 16px;
-        /* スマホ用のラベルのフォントサイズ */
     }
 
     .sell__section-title {
         font-size: 22px;
-        /* スマホ用のセクションタイトルのフォントサイズ */
     }
 
     .sell__submit-button {
         font-size: 14px;
-        /* スマホ用のボタンのフォントサイズ */
     }
 
     .category-buttons {

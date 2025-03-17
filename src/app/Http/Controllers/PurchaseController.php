@@ -38,7 +38,7 @@ class PurchaseController extends Controller
         // もし注文履歴がない場合、ユーザーの登録住所をorder_addressesテーブルに保存
         if (!$orderAddress) {
             $orderAddress = new OrderAddress([
-                'user_id' => $user->id, 
+                'user_id' => $user->id,
                 'order_postal_code' => $user->postal_code,
                 'order_address' => $user->address,
                 'order_building' => $user->building,
@@ -71,6 +71,6 @@ class PurchaseController extends Controller
 
         return redirect()->route('purchase.create', ['item_id' => $itemId])
                         ->with('success', '住所が変更されました。')
-                        ->with('orderAddress', $orderAddress); 
+                        ->with('orderAddress', $orderAddress);
     }
 }
