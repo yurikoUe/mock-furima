@@ -87,7 +87,8 @@ DB_PASSWORD=laravel_pass
     STRIPE_KEY=your_stripe_public_key
     STRIPE_SECRET=your_stripe_secret_key
     ```
-    APIキーは、Stripeのダッシュボード からテスト環境のAPIキーを取得してください（https://dashboard.stripe.com/test/apikeys）。
+    APIキーは、以下のStripeのダッシュボードからテスト環境のAPIキーを取得してください.
+    https://dashboard.stripe.com/test/apikeys
 
     未登録の人は先に登録が必要です→[Stripe公式サイト](https://stripe.com/jp?utm_campaign=APAC_JP_JA_Search_Brand_Payments-Pure_EXA-21278920274&utm_medium=cpc&utm_source=google&ad_content=714155577511&utm_term=stripe&utm_matchtype=e&utm_adposition=&utm_device=c&gad_source=1&gclid=Cj0KCQjwhMq-BhCFARIsAGvo0Kde-7Fg6U7v2NTt4uBilQa9vI2G0Sk_U19TmXSWLmxrDDyY7Fbv_ncaAnIJEALw_wcB)
 
@@ -129,33 +130,32 @@ DB_PASSWORD=laravel_pass
 
 ## PHPunitテストの実行について
 
-1. テスト準備（MySQOにテスト用のデータベースがない人は、以下に従って準備をしてください）
+1. テスト準備
 
     1. MySQLコンテナからMySQLに、rootユーザでログインして、demo_testというデータベースを作成します。
 
         新規でデータベースを作成する際は、権限の問題でrootユーザ（管理者)でログインする必要があります。
 
-        ```MySQLコンテナ上
-        mysql -u root -p
-        ```
+        1. `docker-compose exec mysql bash`
+        2. `mysql -u root -p`
 
-        パスワードを求められるので、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているrootを入力します。
+        3.パスワードを求められるので、docker-compose.ymlファイルのMYSQL_ROOT_PASSWORD:に設定されているrootを入力します。
 
-        MySQLログイン後、以下のコードでdemo_testというデータベースを作成します。
-
+        4. MySQLログイン後、以下のコードでdemo_testというデータベースを作成します。
         ```
         CREATE DATABASE demo_test;
         ```
 
-        以下のコードで、demo_testが作成されていれば成功です。
+        5. 以下のコードで、demo_testが作成されていれば成功です。
         ```
         SHOW DATABASES;
         ```
     
     2. configファイルの変更
 
-        configディレクトリの中のdatabase.phpを開き、mysqlの配列部分をコピーして、その下に新たにmysql_testを作成します。
-        配列の中のdatabase、username、passwordは以下のように変更します。
+        configディレクトリの中のdatabase.phpを開き、mysql_testがあることを確認してください。（ない場合は、mysqlの配列部分をコピーして、その下に新たにmysql_testを作成します。）
+
+        配列の中のdatabase、username、passwordは以下であることを確認してください。
 
         **'database' => 'demo_test',**  
         **'username' => 'root',**  
@@ -187,20 +187,20 @@ DB_PASSWORD=laravel_pass
 
     3. テスト用の.envファイル作成
 
-        次に、PHPコンテナにログインし、.envをコピーして.env.testingというファイルを作成しましょう。
+        1. PHPコンテナにログインし、.envをコピーして.env.testingというファイルを作成します。
 
         ```PHPコンテナ上
         cp .env .env.testing
         ```
 
-        ファイルの作成ができたたら、.env.testingファイルの文頭部分にあるAPP_ENVとAPP_KEYを以下のように編集します。
+        2. ファイルの作成ができたたら、.env.testingファイルの文頭部分にあるAPP_ENVとAPP_KEYを以下のように編集します。
 
         ```
         APP_ENV=test
         APP_KEY=
         ```
 
-        次に.env.testingにデータベースの接続情報を以下のように編集してください。
+        3. .env.testingにデータベースの接続情報を以下のように編集してください。
 
         ```
         DB_DATABASE=demo_test
@@ -208,18 +208,18 @@ DB_PASSWORD=laravel_pass
         DB_PASSWORD=root
         ```
 
-        先ほど「空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加えるために以下のコマンドを実行します。
+        4. 先ほど「空」にしたAPP_KEYに新たなテスト用のアプリケーションキーを加えるために以下のコマンドを実行します。
 
         ```
         php artisan key:generate --env=testing
         ```
 
-        キャッシュをクリアします。
+        5. キャッシュをクリアします。
         ```
         php artisan config:clear
         ```
 
-        マイグレーションコマンドを実行して、テスト用のテーブルを作成します。
+        6. マイグレーションコマンドを実行して、テスト用のテーブルを作成します。
         ```
         php artisan migrate --env=testing
         ```
@@ -237,10 +237,10 @@ DB_PASSWORD=laravel_pass
     テストは以下のコマンドで実行できます。
 
     ```
-    vendor/bin/phpunit src/tests/Feature/テストファイル名
+    vendor/bin/phpunit tests/Feature/LoginTest.php  #テストファイル名を変えて実行してください
     ```
 
-    テストファイルは src/tests/Feature/以下にあるので、そちらでファイル名を確認してください。  
+    テストファイル名は src/tests/Feature/以下にあるので、そちらでファイル名を確認してください。  
 
 
 
