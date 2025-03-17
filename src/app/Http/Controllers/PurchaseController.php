@@ -60,15 +60,14 @@ class PurchaseController extends Controller
     {
         // 現在の認証ユーザーを取得
         $user = auth()->user();
-
         // 注文に関連する住所情報を order_addresses テーブルに保存
         $orderAddress = new OrderAddress();
         $orderAddress->user_id = auth()->id();
-        $orderAddress->order_address = $validatedData['order_address'];
-        $orderAddress->order_postal_code = $validatedData['order_postal_code'];
-        $orderAddress->order_building = $validatedData['order_building'];
+        $orderAddress->order_address = $request->order_address;
+        $orderAddress->order_postal_code = $request->order_postal_code;
+        $orderAddress->order_building = $request->order_building;
 
-        $orderAddress->save(); // 住所情報を保存
+        $orderAddress->save();
 
         return redirect()->route('purchase.create', ['item_id' => $itemId])
                         ->with('success', '住所が変更されました。')
