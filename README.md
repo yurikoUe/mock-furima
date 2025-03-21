@@ -240,22 +240,22 @@ DB_PASSWORD=laravel_pass
     vendor/bin/phpunit tests/Feature/LoginTest.php  #テストファイル名を変えて実行してください
     ```
 
-    テストファイル名:
-        - 1. 会員登録機能テスト         RegisterTest.php
-        - 2. ログイン機能テスト         LoginTest.php
-        - 3. ログアウト機能テスト       LogoutTest.php
-        - 4. 商品一覧取得テスト         ProductListTest.php
-        - 5. マイリスト取得テスト       MyListFeatureTest.php
-        - 6. 商品検索機能テスト         ProductSearchTest.php
-        - 7. 商品詳細情報取得テスト     ProductDetailTest.php
-        - 8. いいね機能テスト          LikeProductTest.php
-        - 9. コメント送信機能テスト     CommentSubmissionTest.php
-        - 10. 商品購入機能テスト        PurchaseTest.php
-        - 11. 支払い方法選択機能テスト  未実装
-        - 12. 配送先変更機能            DeliveryAddressChangeTest.php
-        - 13. ユーザー情報取得         UserProfileTest.php
-        - 14. ユーザー情報変更         UserProfileEditTest.php
-        - 15. 出品商品情報登録         ExhibitionTest.php
+    テストファイル名一覧:  
+        - 1. 会員登録機能テスト         RegisterTest.php  
+        - 2. ログイン機能テスト         LoginTest.php  
+        - 3. ログアウト機能テスト       LogoutTest.php  
+        - 4. 商品一覧取得テスト         ProductListTest.php  
+        - 5. マイリスト取得テスト       MyListFeatureTest.php  
+        - 6. 商品検索機能テスト         ProductSearchTest.php  
+        - 7. 商品詳細情報取得テスト     ProductDetailTest.php  
+        - 8. いいね機能テスト          LikeProductTest.php  
+        - 9. コメント送信機能テスト     CommentSubmissionTest.php  
+        - 10. 商品購入機能テスト        PurchaseTest.php  
+        - 11. 支払い方法選択機能テスト  未実装  
+        - 12. 配送先変更機能            DeliveryAddressChangeTest.php  
+        - 13. ユーザー情報取得         UserProfileTest.php  
+        - 14. ユーザー情報変更         UserProfileEditTest.php  
+        - 15. 出品商品情報登録         ExhibitionTest.php  
 
 
 
