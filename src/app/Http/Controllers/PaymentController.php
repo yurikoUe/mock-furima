@@ -46,7 +46,7 @@ class PaymentController extends Controller
             'product' => $stripeProduct->id,  // 先に作成した商品IDを指定
         ]);
 
-         // 注文を保存（決済前に注文を作成）
+        // 注文を保存（決済前に注文を作成）
         $order = new Order();
         $order->user_id = auth()->id();
         $order->product_id = $product->id;
@@ -57,26 +57,26 @@ class PaymentController extends Controller
 
         try {
 
-        // 決済セッションを作成
-        $session = \Stripe\Checkout\Session::create([
-            'customer' => $customer->id,
-            // 'payment_method_types' => ['card', 'konbini'],
-            'payment_method_types' => $stripePaymentMethod,
-            'line_items' => [[
-                'price' => $stripePrice->id, // 作成した価格IDを指定
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => url('/success') . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => route('checkout.cancel'),
-            'metadata' => [
-                'order_id' => $order->id,
-            ]
-        ]);
+            // 決済セッションを作成
 
-        // セッションURLへリダイレクト
-        return redirect($session->url);
+            $session = \Stripe\Checkout\Session::create([
+                'customer' => $customer->id,
+                // 'payment_method_types' => ['card', 'konbini'],
+                'payment_method_types' => $stripePaymentMethod,
+                'line_items' => [[
+                    'price' => $stripePrice->id, // 作成した価格IDを指定
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'success_url' => url('/success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('checkout.cancel'),
+                'metadata' => [
+                    'order_id' => $order->id,
+                ]
+            ]);
 
+            // セッションURLへリダイレクト
+            return redirect($session->url);
         } catch (\Stripe\Exception\ApiErrorException $e) {
             Log::error('Stripe Checkout Error: ' . $e->getMessage());
 
@@ -103,27 +103,25 @@ class PaymentController extends Controller
                 return redirect()->route('index')->with('info', 'この注文は既に決済されています');
             }
 
-            if ($session->payment_status === 'paid') {
-
-                // すでに注文に紐づく支払い方法を取得
-                $paymentMethod = $order->payment_method;
-
-                // クレジットカード決済なら請求書は作成しない
-                if ($paymentMethod === 'convenience_store') {
-                    // Stripeの請求書を作成してメール送信（コンビニ決済の場合のみ）
-                    $invoice = \Stripe\Invoice::create([
-                        'customer' => $session->customer, // Checkoutの顧客IDを指定
-                        'collection_method' => 'send_invoice', // メールで請求書を送信
-                        'days_until_due' => 3, // 3日以内に支払い
-                    ]);
-                }
-
-                $order->status = '決済完了';
-                $order->save();
+            if ($session->payment_status !== 'paid') {
+                return redirect()->route('index')->with('info', '支払いが完了していません');
             }
 
-            return redirect()->route('index')->with('success', '購入が完了しました！');
+            // すでに注文に紐づく支払い方法を取得
+            $paymentMethod = $order->payment_method;
+            // クレジットカード決済なら請求書は作成しない
+            if ($paymentMethod === 'convenience_store') {
+                // Stripeの請求書を作成してメール送信（コンビニ決済の場合のみ）
+                $invoice = \Stripe\Invoice::create([
+                    'customer' => $session->customer, // Checkoutの顧客IDを指定
+                    'collection_method' => 'send_invoice', // メールで請求書を送信
+                    'days_until_due' => 3, // 3日以内に支払い
+                ]);
+            }
+            $order->status = '決済完了';
+            $order->save();
 
+            return redirect()->route('index')->with('success', '購入が完了しました！');
         } catch (\Stripe\Exception\ApiErrorException $e) {
             Log::error('Stripe Checkout Error: ' . $e->getMessage());
 
@@ -141,4 +139,3 @@ class PaymentController extends Controller
         return redirect()->route('index')->with('cancel', '購入をキャンセルしました');
     }
 }
-

@@ -13,8 +13,7 @@ class FavoriteController extends Controller
     {
         $user = Auth::user();
 
-        // ユーザーがすでにお気に入りにしているか確認
-        if (Auth::user()->favorites()->where('product_id', $product->id)->exists()) {
+        if ($user->hasFavorite($product)) {
             return redirect()->back();
         }
 

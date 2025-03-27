@@ -14,19 +14,30 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        // ログインしている場合
-        if (Auth::check()) {
-            $user = Auth::user();
-
-            // 初めてのログイン（プロフィールが未完了の場合）
-            if ($user->profile_completed == false) {
-                return Redirect::route('mypage.profile');
-            }
+        $user = Auth::user();
+        if (Auth::check() && $user->profile_completed == false) 
+        {
+            return Redirect::route('mypage.profile');
         }
+
 
         $keyword = $request->get('keyword');
         $tab = $request->get('tab');
 
+        $product = $this->searchProduct($keyword, $tab);
+
+        // 商品ごとにSOLD判定を追加
+        $products->each(function ($product) {
+            $product->isSold = Order::where('product_id', $product->id)
+                                    ->whereIn('status', ['決済完了', '決済待機中'])
+                                    ->exists();
+        });
+
+        // 商品データと検索ワードをビューに渡す
+        return view('index', compact('products', 'keyword'));
+    }
+
+    function searchProduct($keyword, $tab) {
         // クエリビルダーを使って検索を適用
         if ($request->get('tab') == 'mylist') {
             // 「マイリスト」の場合
@@ -46,17 +57,7 @@ class ItemController extends Controller
         }
 
         // 商品を取得
-        $products = $query->get();
-
-        // 商品ごとにSOLD判定を追加
-        $products->each(function ($product) {
-            $product->isSold = Order::where('product_id', $product->id)
-                                    ->whereIn('status', ['決済完了', '決済待機中'])
-                                    ->exists();
-        });
-
-        // 商品データと検索ワードをビューに渡す
-        return view('index', compact('products', 'keyword'));
+        return $query->get();
     }
 
     public function show($item_id)
