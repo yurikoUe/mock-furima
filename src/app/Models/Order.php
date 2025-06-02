@@ -36,5 +36,10 @@ class Order extends Model
     {
         return $this->belongsTo(OrderAddress::class);
     }
+    // この注文に紐づくチャットメッセージ
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
 
 }

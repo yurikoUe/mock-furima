@@ -22,7 +22,9 @@ class UserFactory extends Factory
             'address' => $this->faker->address(),
             'postal_code' => $this->faker->postcode(),
             'building' => $this->faker->secondaryAddress(),
-            'profile_image' => '/storage/images/default.png'
+            'profile_image' => 'images/default.png',
+            'email_verified_at' => now(), // デフォルト認証済みに
+            'profile_completed' => true, // デフォルト完了済みに
         ];
     }
 

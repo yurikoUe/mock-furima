@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
         // カテゴリー（categories）を次にシーディング
         $this->call(CategorySeeder::class);
 
-        // ユーザーをファクトリで作成（10人分）
-        User::factory(10)->create();
+        // ユーザーをファクトリで作成
+        $this->call(UserSeeder::class);
 
         // 商品をシーディング（user_id, brand_id を利用）
         $this->call(ProductSeeder::class);
