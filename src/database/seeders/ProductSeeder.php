@@ -17,7 +17,8 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::first(); // 最初のユーザーを取得
+        $userA = User::where('email', 'usera@example.com')->first();
+        $userB = User::where('email', 'userb@example.com')->first();
 
         // 各テーブルのIDを取得
         $categories = Category::pluck('id', 'name')->toArray();
@@ -107,10 +108,10 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        foreach ($products as $productData) {
+        foreach ($products as $index => $productData) {
                 $product = Product::create([
                 'name' => $productData['name'],
-                'user_id' => $user->id,
+                'user_id' => $index < 5 ? $userA->id : $userB->id,
                 'price' => $productData['price'],
                 'description' => $productData['description'],
                 'image' => $productData['img'],

@@ -51,6 +51,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(OrderAddress::class);
     }
 
+    // ユーザーが送信したメッセージ
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class, 'sender_id');
+    }
+
+    // ユーザーが既読にしたメッセージ
+    public function readChatMessages()
+    {
+        return $this->hasMany(ChatMessageRead::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
