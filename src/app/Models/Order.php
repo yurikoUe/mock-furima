@@ -42,4 +42,25 @@ class Order extends Model
         return $this->hasMany(ChatMessage::class);
     }
 
+    // 取引中の商品を抽出
+    public function scopeActiveForUser($query, $userId)
+    {
+        return $query->where(function ($q) use ($userId) {
+                $q->where('user_id', $userId) // 購入者が自分
+                ->orWhereHas('product', function ($q2) use ($userId) { // 出品者が自分
+                    $q2->where('user_id', $userId);
+                });
+            })
+            ->where('status', '決済完了') //決済完了かつ
+            ->where('finished', false); //取引未終了
+    }
+
+    // 未読メッセージ数のカウント
+    public function unreadMessages()
+    {
+        return $this->hasMany(ChatMessage::class)
+                    ->where('sender_id', '!=', auth()->id()) // or use passed in $userId
+                    ->where('is_read', false);
+    }
+
 }
