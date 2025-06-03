@@ -7,7 +7,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ExhibitionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ChatController;
 use Laravel\Fortify\Fortify;
+
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/email/verify', function () {
@@ -19,6 +21,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('mypage.profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // 取引チャット機能
+    Route::prefix('chat')->group(function () {
+        Route::get('{order}', [ChatController::class, 'show'])->name('chat.show');
+        Route::post('{order}', [ChatController::class, 'store'])->name('chat.store');
+        Route::put('{order}/message/{message}', [ChatController::class, 'update'])->name('chat.update');
+        Route::delete('{order}/message/{message}', [ChatController::class, 'destroy'])->name('chat.destroy');
+    });
 
     Route::get('/sell', [ExhibitionController::class, 'create'])->name('sell.create');
     Route::post('/sell', [ExhibitionController::class, 'store'])->name('sell.store');

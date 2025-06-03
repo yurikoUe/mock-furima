@@ -1,0 +1,300 @@
+/* 全体レイアウト */
+.chat-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f9f9f9;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* サイドバー */
+.sidebar {
+    width: 280px;
+    background-color: #2f2f2f;
+    /* 濃いグレー */
+    border-right: 1px solid #444;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #bbb;
+    /* 薄いグレー */
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 6px;
+}
+
+.sidebar-item {
+    margin-bottom: 12px;
+}
+
+/* 薄いグレー背景のボタン風リンク */
+.sidebar-link {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #ccc;
+    /* 薄いグレー */
+    color: #333;
+    /* 濃いグレー */
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #bbb;
+    color: #111;
+}
+
+/* メインチャットエリア */
+.main-chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #fff;
+}
+
+/* 取引相手情報 */
+.partner-info {
+    margin-bottom: 16px;
+}
+
+/* 取引相手プロフィール画像 */
+.partner-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+/* 区切り線 */
+.divider {
+    border-bottom: 1px solid #ccc;
+    margin: 16px 0;
+}
+
+/* 商品情報 */
+.item-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.item-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.item-price {
+    font-size: 1rem;
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+/* チャットメッセージ一覧 */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    /* 薄いグレー背景 */
+    padding: 12px;
+    border-radius: 12px;
+}
+
+/* メッセージ共通 */
+.message {
+    display: flex;
+    margin-bottom: 12px;
+    max-width: 75%;
+}
+
+/* 自分のメッセージ（右寄せ） */
+.message-self {
+    margin-left: auto;
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.message-self .message-content {
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 16px 16px 0 16px;
+    padding: 10px 14px;
+    position: relative;
+    word-break: break-word;
+}
+
+/* 自分のメッセージの編集・削除ボタン */
+.message-self .message-actions {
+    margin-top: 6px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.action-edit,
+.action-delete {
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: none;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.action-edit:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+}
+
+.action-delete {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+}
+
+.action-delete:hover {
+    background-color: #c0392b;
+}
+
+/* 相手のメッセージ（左寄せ） */
+.message-partner {
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.message-partner .message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.message-partner .message-content {
+    background-color: #f1f0f0;
+    border-radius: 16px 16px 16px 0;
+    padding: 10px 14px;
+    max-width: 100%;
+    word-break: break-word;
+    color: #333;
+}
+
+/* ユーザー名 */
+.message-username {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+/* メッセージテキスト */
+.message-text {
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+/* メッセージ投稿フォーム */
+.message-form-section {
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
+}
+
+.message-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.message-input:focus {
+    border-color: #4a90e2;
+}
+
+/* 画像アップロードラベル */
+.message-upload-label {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #4a90e2;
+    border: 1px solid #4a90e2;
+    padding: 6px 10px;
+    border-radius: 16px;
+    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+.message-upload-label:hover {
+    background-color: #4a90e2;
+    color: white;
+}
+
+/* ファイル入力は非表示 */
+.message-upload-input {
+    display: none;
+}
+
+/* 送信ボタン */
+.message-submit-button {
+    background-color: #4a90e2;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.message-submit-button:hover {
+    background-color: #357abd;
+}
+
+.message-submit-icon {
+    width: 20px;
+    height: 20px;
+    stroke: white;
+}
+
+.tab-content__item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}

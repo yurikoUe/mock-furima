@@ -53,13 +53,15 @@
 @elseif(request('tab') == 'chat')
     <div id="chatting" class="tab-content">
         @foreach ($chatOrders as $order)
-            <div class="tab-content__item">
-                <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
-                <p>{{ $order->product->name }}</p>
-                @if ($order->unread_count > 0)
-                    <span class="badge">{{ $order->unread_count }}件の新着メッセージ</span>
-                @endif
-            </div>
+            <a href="{{ route('chat.show', $order->id) }}" class="tab-content__item-link">
+                <div class="tab-content__item">
+                    <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
+                    <p>{{ $order->product->name }}</p>
+                    @if ($order->unread_count > 0)
+                        <span class="badge">{{ $order->unread_count }}件の新着メッセージ</span>
+                    @endif
+                </div>
+            </a>
         @endforeach
     </div>
 @endif
