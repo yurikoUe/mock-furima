@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\ChatMessage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreChatMessageRequest;
 
 class ChatController extends Controller
 {
@@ -61,19 +62,15 @@ class ChatController extends Controller
 			]);
 	}
 	
-	public function store(Request $request, Order $order)
+	public function store(StoreChatMessageRequest $request, Order $order)
 	{
-		//バリデーション
-		$validated = $request->validate([
-			'content' => 'required|string',
-      'image' => 'nullable|image|max:2048',
-		]);
-
 		// 画像保存
 		$imagePath = null;
 		if($request->hasFile('image')){
 			$imagePath = $request->file('image')->store('chat_images', 'public');
 		}
+
+    $validated = $request->validated();
 
 		// メッセージ保存
 		$message = $order->chatMessages()->create([
@@ -83,7 +80,7 @@ class ChatController extends Controller
 			'is_read' => false,
 		]);
 
-		return redirect()->route('chat.show', $order->id);
+		return redirect()->route('chat.show', $order->id)->with('message_sent', true);
 
 	}
 
@@ -106,7 +103,7 @@ class ChatController extends Controller
 		]);
 	}
 
-	public function update(Request $request, Order $order, ChatMessage $message)
+	public function update(StoreChatMessageRequest $request, Order $order, ChatMessage $message)
 	{
 		// 所属チェック
 		if ($message->order_id !== $order->id) {
@@ -118,10 +115,7 @@ class ChatController extends Controller
 				abort(403);
 		}
 
-		// バリデーション
-		$validated = $request->validate([
-				'content' => 'required|string',
-		]);
+    $validated = $request->validated();
 
 		// 更新
 		$message->update([

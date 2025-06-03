@@ -60,9 +60,13 @@
                         <form action="{{ route('chat.update', ['order' => $order->id, 'message' => $message->id]) }}" method="POST" class="edit-form">
                             @csrf
                             @method('PUT')
+							
                             <input type="text" name="content" value="{{ old('content', $message->content) }}" class="edit-input">
                             <button type="submit" class="btn-save">保存</button>
                             <a href="{{ route('chat.show', $order->id) }}" class="btn-cancel">キャンセル</a>
+							@error('content')
+								<div class="text-red-500">{{ $message }}</div>
+							@enderror
                         </form>
                     @else
                         <p class="message-text">{{ $message->content }}</p>
@@ -99,9 +103,19 @@
 
 		<!-- メッセージ投稿フォーム -->
 		<section class="message-form-section">
+			@if ($errors->any())
+				<div class="mb-4 text-red-600">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
+		
 			<form action="{{ route('chat.store', $order->id) }}" method="POST" enctype="multipart/form-data" class="message-form">
 				@csrf
-				<input type="text" name="content" placeholder="取引メッセージを記入してください" class="message-input">
+				<input type="text" name="content" value="{{ old('content') }}" placeholder="取引メッセージを記入してください" class="message-input">
 				<label class="message-upload-label">
 					画像を追加
 					<input type="file" name="image" class="message-upload-input">
@@ -114,5 +128,30 @@
 
 	</main>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	const input = document.querySelector('input[name="content"]');
+	const key = 'chat_draft_{{ $order->id }}';
+
+	// 入力を保存
+	input.addEventListener('input', function () {
+		sessionStorage.setItem(key, input.value);
+	});
+
+	// ★ Laravelセッションで「送信された」場合は復元しない
+	@if (!session('message_sent'))
+		const saved = sessionStorage.getItem(key);
+		if (saved && input.value === '') {
+			input.value = saved;
+		}
+	@else
+		// セッションに送信済みフラグがある → draft 削除
+		sessionStorage.removeItem(key);
+	@endif
+});
+</script>
+
+
 
 @endsection
