@@ -122,7 +122,7 @@ class ChatController extends Controller
 				'content' => $validated['content'],
 		]);
 
-		return redirect()->route('chat.show', $order->id)->with('success', 'メッセージを更新しました');
+		return redirect()->route('chat.show', $order->id);
 	}
 
 	public function destroy(Order $order, ChatMessage $message)
@@ -145,7 +145,7 @@ class ChatController extends Controller
 		// レコード削除
 		$message->delete();
 
-		return redirect()->route('chat.show', $order->id)->with('success', 'メッセージを削除しました');
+		return redirect()->route('chat.show', $order->id);
 	}
 
 }

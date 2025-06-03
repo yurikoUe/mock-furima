@@ -43,6 +43,8 @@ class Order extends Model
         return $this->hasMany(ChatMessage::class);
     }
 
+    
+
     // 取引中の商品を抽出
     public function scopeActiveForUser($query, $userId)
     {

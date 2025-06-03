@@ -28,7 +28,7 @@
 			<img src="{{ asset('storage/' . $partner->profile_image) }}" alt="相手のプロフィール画像" class="partner-image">
 			<p class="partner-name">{{ $partner->name }} さんとの取引画面</p>
 			@if ($isBuyer)
-				<button type="button" class="btn btn-primary">取引終了</button>
+				<button type="button" class="btn btn-primary" id="end-trade-btn">取引終了</button>
 			@endif
 		</section>
 
@@ -126,6 +126,24 @@
 			</form>
 		</section>
 
+		<!-- 取引終了モーダル -->
+<div id="trade-complete-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>取引が完了しました</h3>
+		<p>今回の取引相手はどうでしたか？</p>
+        <form action="{{ route('trade.rate', $order->id) }}" method="POST" id="rating-form">
+            @csrf
+            <div class="star-rating">
+                @for ($i = 5; $i >= 1; $i--)
+                    <input type="radio" id="star{{ $i }}" name="rating" value="{{ $i }}" />
+                    <label for="star{{ $i }}" title="{{ $i }} stars">★</label>
+                @endfor
+            </div>
+            <button type="submit" class="btn btn-primary">送信</button>
+        </form>
+    </div>
+</div>
+
 	</main>
 </div>
 
@@ -150,6 +168,29 @@ document.addEventListener('DOMContentLoaded', function () {
 		sessionStorage.removeItem(key);
 	@endif
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('trade-complete-modal');
+    const openBtn = document.getElementById('end-trade-btn');
+    const cancelBtn = document.getElementById('modal-cancel-btn');
+
+    openBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // モーダル外クリックで閉じる（任意）
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
 </script>
 
 

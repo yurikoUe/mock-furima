@@ -31,6 +31,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('{order}/message/{message}', [ChatController::class, 'destroy'])->name('chat.destroy');
     });
 
+    Route::post('/trade/{order}/rate', [TradeController::class, 'rate'])->name('trade.rate');
+
+
     Route::get('/sell', [ExhibitionController::class, 'create'])->name('sell.create');
     Route::post('/sell', [ExhibitionController::class, 'store'])->name('sell.store');
 

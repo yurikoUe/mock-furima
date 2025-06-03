@@ -298,3 +298,54 @@
     text-decoration: none;
     color: inherit;
 }
+
+/* 取引終了モーダル */
+/* モーダル全体の背景 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 黒の半透明 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* 他の要素より前面に */
+}
+
+/* モーダル内のウィンドウ */
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin: 20% auto;
+}
+
+.star-rating {
+    direction: rtl;
+    /* 右から左に評価 */
+    unicode-bidi: bidi-override;
+    font-size: 2rem;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating input:checked~label,
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: gold;
+}
