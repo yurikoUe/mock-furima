@@ -24,6 +24,7 @@
 <div class="tabs">
     <a href="{{ url('/mypage?tab=sell') }}" class="tabs__link {{ request('tab', 'sell') == 'sell' ? 'tabs__link--active' : '' }}">出品した商品</a>
     <a href="{{ url('/mypage?tab=buy') }}" class="tabs__link {{ request('tab') == 'buy' ? 'tabs__link--active' : '' }}">購入した商品</a>
+    <a href="{{ url('/mypage?tab=chat') }}" class="tabs__link {{ request('tab') == 'chat' ? 'tabs__link--active' : '' }}">取引中の商品</a>
 </div>
 
 <!-- タブのコンテンツ -->
@@ -44,6 +45,20 @@
             <div class="tab-content__item">
                 <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
                 <p class="product-list__name">{{ $order->product->name }}</p>
+            </div>
+        @endforeach
+    </div>
+
+<!-- 取引中の商品 -->
+@elseif(request('tab') == 'chat')
+    <div id="chatting" class="tab-content">
+        @foreach ($chatOrders as $order)
+            <div class="tab-content__item">
+                <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
+                <p>{{ $order->product->name }}</p>
+                @if ($order->unread_count > 0)
+                    <span class="badge">{{ $order->unread_count }}件の新着メッセージ</span>
+                @endif
             </div>
         @endforeach
     </div>

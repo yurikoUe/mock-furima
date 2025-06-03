@@ -15,6 +15,7 @@ class Order extends Model
         'payment_method',
         'order_address_id',
         'status',
+        'finished'
     ];
 
     // 支払い方法の選択肢

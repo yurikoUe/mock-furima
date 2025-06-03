@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->enum('payment_method', ['card', 'convenience_store']);
             $table->string('status');
+            $table->boolean('finished')->default(false);
             $table->timestamps();
         });
     }

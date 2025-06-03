@@ -32,7 +32,12 @@ class ProfileController extends Controller
                                 ->with('product')  // 購入した商品情報も一緒に取得
                                 ->get();
 
-        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'tab'));
+        $chatOrders = Order::activeForUser($user->id) // スコープを使って絞り込み
+                    ->with('product')                         // 商品情報を取得
+                    ->withCount('unreadMessages')             // 未読メッセージ数を取得
+                    ->get();
+
+        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'chatOrders', 'tab'));
     }
 
     public function edit()

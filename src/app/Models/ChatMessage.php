@@ -14,16 +14,12 @@ class ChatMessage extends Model
         'sender_id',
         'content',
         'image',
+        'is_read'
     ];
 
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
-    }
-
-    public function reads()
-    {
-        return $this->hasMany(ChatMessageRead::class);
     }
 
     public function order()
