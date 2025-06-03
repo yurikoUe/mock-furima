@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
@@ -23,7 +24,7 @@ class ChatController extends Controller
 	
 			// チャットメッセージ（古い順）
 			$messages = $order->chatMessages()
-					->with('user')
+					->with('sender')
 					->orderBy('created_at')
 					->get();
 	
@@ -55,5 +56,30 @@ class ChatController extends Controller
 			]);
 	}
 	
+	public function store(Request $request, Order $order)
+	{
+		//バリデーション
+		$validated = $request->validate([
+			'content' => 'required|string',
+      'image' => 'nullable|image|max:2048',
+		]);
+
+		// 画像保存
+		$imagePath = null;
+		if($request->hasFile('image')){
+			$imagePath = $request->file('image')->store('chat_images', 'public');
+		}
+
+		// メッセージ保存
+		$message = $order->chatMessages()->create([
+			'sender_id' => Auth::id(),
+			'content' => $validated['content'],
+			'image' => $imagePath,
+			'is_read' => false,
+		]);
+
+		return redirect()->route('chat.show', $order->id);
+
+	}
 
 }

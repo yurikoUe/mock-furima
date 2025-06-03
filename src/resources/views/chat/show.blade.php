@@ -47,14 +47,14 @@
         <!-- チャット画面 -->
         <section class="chat-messages">
             @foreach ($messages as $message)
-                @if ($message->user_id === auth()->id())
+                @if ($message->sender_id === auth()->id())
                     <!-- 自分のメッセージ（右寄せ） -->
                     <div class="message message-self">
                         <div class="message-content">
-                            <p class="message-username">{{ $message->user->name }}</p>
+                            <p class="message-username">{{ $message->sender->name }}</p>
                             <p class="message-text">{{ $message->content }}</p>
                             <div class="message-actions">
-                                <a href="{{ route('chat.edit', ['order' => $order->id, 'message' => $message->id]) }}" class="action-edit">編集</a>
+                                <a href="" class="action-edit">編集</a>
                                 <form action="{{ route('chat.destroy', ['order' => $order->id, 'message' => $message->id]) }}" method="POST" class="action-delete-form">
                                     @csrf
                                     @method('DELETE')
@@ -66,9 +66,9 @@
                 @else
                     <!-- 相手のメッセージ（左寄せ） -->
                     <div class="message message-partner">
-                        <img src="{{ asset('storage/' . $message->user->profile_image) }}" alt="アイコン" class="message-avatar">
+                        <img src="{{ asset('storage/' . $message->sender->profile_image) }}" alt="アイコン" class="message-avatar">
                         <div class="message-content">
-                            <p class="message-username">{{ $message->user->name }}</p>
+                            <p class="message-username">{{ $message->sender->name }}</p>
                             <p class="message-text">{{ $message->content }}</p>
                         </div>
                     </div>
