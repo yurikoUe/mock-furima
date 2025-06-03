@@ -27,6 +27,9 @@
 		<section class="partner-info flex items-center">
 			<img src="{{ asset('storage/' . $partner->profile_image) }}" alt="相手のプロフィール画像" class="partner-image">
 			<p class="partner-name">{{ $partner->name }} さんとの取引画面</p>
+			@if ($isBuyer)
+				<button type="button" class="btn btn-primary">取引終了</button>
+			@endif
 		</section>
 
 		<!-- 区切り線 -->

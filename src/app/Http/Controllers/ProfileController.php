@@ -32,9 +32,12 @@ class ProfileController extends Controller
                                 ->with('product')  // 購入した商品情報も一緒に取得
                                 ->get();
 
+        // 取引中の商品
         $chatOrders = Order::activeForUser($user->id) // スコープを使って絞り込み
                     ->with('product')                         // 商品情報を取得
                     ->withCount('unreadMessages')             // 未読メッセージ数を取得
+                    ->withMax('chatMessages', 'created_at')
+                    ->orderByDesc('chat_messages_max_created_at') //最新メッセージが新しい順に並べ替え
                     ->get();
         
         $totalUnreadCount = $chatOrders->sum('unread_messages_count');
