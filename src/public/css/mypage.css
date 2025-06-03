@@ -1,3 +1,4 @@
+/* ---------- マイページヘッダー ---------- */
 .mypage-header {
     display: flex;
     padding: 30px;
@@ -13,7 +14,7 @@
     gap: 50px;
 }
 
-.mypage-header__image img{
+.mypage-header__image img {
     border-radius: 50%;
     max-width: 120px;
 }
@@ -22,7 +23,6 @@
     font-size: 30px;
     font-weight: bold;
 }
-
 
 .mypage-header__ling {
     text-decoration: none;
@@ -34,10 +34,8 @@
     border-width: 2px;
 }
 
-/* タブレット対応 */
+/* ---------- レスポンシブ：タブレット ---------- */
 @media screen and (max-width: 850px) {
-    
-
     .mypage-header__info {
         text-align: center;
         gap: 50px;
@@ -52,8 +50,8 @@
     }
 }
 
+/* ---------- レスポンシブ：スマホ ---------- */
 @media screen and (max-width: 767px) {
-
     .mypage-header {
         gap: 30px;
     }
@@ -72,27 +70,22 @@
     }
 
     .mypage-header__ling {
-        text-decoration: none;
-        color: red;
         padding: 5px 10px;
-        border-style: solid;
-        border-radius: 10px;
-        font-weight: bold;
-        border-width: 2px;
         font-size: 18px;
     }
 }
 
-
-/* タブメニュー */
+/* ---------- タブメニュー ---------- */
 .tabs {
     display: flex;
     padding-left: 30px;
     margin: 20px 0;
     border-bottom: 2px solid #ccc;
+    position: relative;
 }
 
 .tabs__link {
+    position: relative;
     padding: 10px 20px;
     text-decoration: none;
     color: #333;
@@ -100,10 +93,20 @@
     transition: color 0.3s ease;
 }
 
-.tabs__link--active{
+.tabs__link--active {
     color: red;
 }
 
+.tab-badge {
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    margin-left: 5px;
+}
+
+/* レスポンシブ：スマホ */
 @media screen and (max-width: 767px) {
     .tabs {
         margin: 0;
@@ -112,7 +115,7 @@
     }
 }
 
-/* 商品カード */
+/* ---------- 商品カード ---------- */
 .tab-content {
     display: flex;
     padding: 20px;
@@ -125,28 +128,48 @@
     width: calc(25% - 15px);
     text-align: center;
     box-sizing: border-box;
+    position: relative;
 }
 
-/* タブレット用 (3列) */
+.product-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.product-image-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-list__name {
+    margin: 10px 0 0;
+    font-size: 16px;
+}
+
+/* レスポンシブ：タブレット (3列) */
 @media screen and (max-width: 850px) {
     .tab-content__item {
         width: calc(33.333% - 15px);
     }
 }
 
-/* スマホ用 (2列) */
+/* レスポンシブ：スマホ (2列) */
 @media screen and (max-width: 767px) {
     .tab-content__item {
         width: calc(50% - 15px);
     }
 }
 
-.tab-content__item img {
-    width: 100%;
-    height: auto;
-}
-
-.product-list__name {
-    margin: 10px 0 0;
-    font-size: 16px;
+/* ---------- 画像左上バッジ（未読件数） ---------- */
+.image-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    font-weight: bold;
 }

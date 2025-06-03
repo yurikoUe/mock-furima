@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('chat')->group(function () {
         Route::get('{order}', [ChatController::class, 'show'])->name('chat.show');
         Route::post('{order}', [ChatController::class, 'store'])->name('chat.store');
+        Route::get('chat/{order}/message/{message}/edit', [ChatController::class, 'edit'])->name('chat.edit');
         Route::put('{order}/message/{message}', [ChatController::class, 'update'])->name('chat.update');
         Route::delete('{order}/message/{message}', [ChatController::class, 'destroy'])->name('chat.destroy');
     });

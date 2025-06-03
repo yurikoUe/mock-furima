@@ -36,8 +36,10 @@ class ProfileController extends Controller
                     ->with('product')                         // 商品情報を取得
                     ->withCount('unreadMessages')             // 未読メッセージ数を取得
                     ->get();
+        
+        $totalUnreadCount = $chatOrders->sum('unread_messages_count');
 
-        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'chatOrders', 'tab'));
+        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'chatOrders','totalUnreadCount', 'tab'));
     }
 
     public function edit()

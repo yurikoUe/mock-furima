@@ -24,7 +24,11 @@
 <div class="tabs">
     <a href="{{ url('/mypage?tab=sell') }}" class="tabs__link {{ request('tab', 'sell') == 'sell' ? 'tabs__link--active' : '' }}">出品した商品</a>
     <a href="{{ url('/mypage?tab=buy') }}" class="tabs__link {{ request('tab') == 'buy' ? 'tabs__link--active' : '' }}">購入した商品</a>
-    <a href="{{ url('/mypage?tab=chat') }}" class="tabs__link {{ request('tab') == 'chat' ? 'tabs__link--active' : '' }}">取引中の商品</a>
+    <a href="{{ url('/mypage?tab=chat') }}" class="tabs__link {{ request('tab') == 'chat' ? 'tabs__link--active' : '' }}">取引中の商品
+        @if ($totalUnreadCount > 0)
+            <span class="tab-badge">{{ $totalUnreadCount }}</span>
+        @endif
+    </a>
 </div>
 
 <!-- タブのコンテンツ -->
@@ -33,17 +37,22 @@
     <div id="selling" class="tab-content">
         @foreach($sellingProducts as $product)
             <div class="tab-content__item">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                <div class="product-image-wrapper">
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                </div>
                 <p class="product-list__name">{{ $product->name }}</p>
             </div>
         @endforeach
     </div>
+
 <!-- 購入した商品 -->
 @elseif(request('tab') == 'buy')
     <div id="purchased" class="tab-content">
         @foreach($purchasedProducts as $order)
             <div class="tab-content__item">
-                <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
+                <div class="product-image-wrapper">
+                    <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
+                </div>
                 <p class="product-list__name">{{ $order->product->name }}</p>
             </div>
         @endforeach
@@ -53,16 +62,19 @@
 @elseif(request('tab') == 'chat')
     <div id="chatting" class="tab-content">
         @foreach ($chatOrders as $order)
-            <a href="{{ route('chat.show', $order->id) }}" class="tab-content__item-link">
-                <div class="tab-content__item">
-                    <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
-                    <p>{{ $order->product->name }}</p>
-                    @if ($order->unread_count > 0)
-                        <span class="badge">{{ $order->unread_count }}件の新着メッセージ</span>
-                    @endif
-                </div>
-            </a>
+            <div class="tab-content__item">
+                <a href="{{ route('chat.show', $order->id) }}" class="tab-content__item-link">
+                    <div class="product-image-wrapper">
+                        <img src="{{ asset('storage/' . $order->product->image) }}" alt="{{ $order->product->name }}">
+                        @if ($order->unread_messages_count > 0)
+                            <span class="image-badge">{{ $order->unread_messages_count }}</span>
+                        @endif
+                    </div>
+                    <p class="product-list__name">{{ $order->product->name }}</p>
+                </a>
+            </div>
         @endforeach
     </div>
 @endif
+
 @endsection

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\ChatMessage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
@@ -80,6 +82,73 @@ class ChatController extends Controller
 
 		return redirect()->route('chat.show', $order->id);
 
+	}
+
+	public function edit(Order $order, ChatMessage $message)
+	{
+		// 所属チェック
+		if ($message->order_id !== $order->id) {
+				abort(404);
+		}
+
+		// 投稿者チェック
+		if ($message->sender_id !== auth()->id()) {
+				abort(403);
+		}
+
+		// 編集画面用にメッセージと注文情報をビューに渡す
+		return view('chat.edit', [
+				'order' => $order,
+				'message' => $message,
+		]);
+	}
+
+	public function update(Request $request, Order $order, ChatMessage $message)
+	{
+		// 所属チェック
+		if ($message->order_id !== $order->id) {
+				abort(404);
+		}
+
+		// 投稿者チェック
+		if ($message->sender_id !== Auth::id()) {
+				abort(403);
+		}
+
+		// バリデーション
+		$validated = $request->validate([
+				'content' => 'required|string',
+		]);
+
+		// 更新
+		$message->update([
+				'content' => $validated['content'],
+		]);
+
+		return redirect()->route('chat.show', $order->id)->with('success', 'メッセージを更新しました');
+	}
+
+	public function destroy(Order $order, ChatMessage $message)
+	{
+		// 所属チェック
+    if ($message->order_id !== $order->id) {
+			abort(404);
+		}
+
+		// 投稿者チェック
+		if ($message->sender_id !== Auth::id()) {
+				abort(403);
+		}
+
+		// 画像削除（あれば）
+		if ($message->image) {
+				Storage::disk('public')->delete($message->image);
+		}
+
+		// レコード削除
+		$message->delete();
+
+		return redirect()->route('chat.show', $order->id)->with('success', 'メッセージを削除しました');
 	}
 
 }
