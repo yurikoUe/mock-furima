@@ -43,7 +43,10 @@ class Order extends Model
         return $this->hasMany(ChatMessage::class);
     }
 
-    
+    public function rating()
+    {
+        return $this->hasMany(Rating::class);
+    }
 
     // 取引中の商品を抽出
     public function scopeActiveForUser($query, $userId)
@@ -54,8 +57,13 @@ class Order extends Model
                     $q2->where('user_id', $userId);
                 });
             })
-            ->where('status', '決済完了') //決済完了かつ
-            ->where('finished', false); //取引未終了
+            ->where('status', '決済完了'); //決済完了かつ
+    }
+
+    // まだ評価していなければtrueを返す
+    public function isNotRatedByUser($userId)
+    {
+        return !$this->rating()->where('rater_id', $userId)->exists();
     }
 
     // 未読メッセージ数のカウント

@@ -38,7 +38,21 @@ class ProfileController extends Controller
                     ->withCount('unreadMessages')             // 未読メッセージ数を取得
                     ->withMax('chatMessages', 'created_at')
                     ->orderByDesc('chat_messages_max_created_at') //最新メッセージが新しい順に並べ替え
-                    ->get();
+                    ->get()
+                    ->filter(function ($order) use ($user) {
+                        $isBuyer = $order->user_id === $user->id;
+                        $isSeller = $order->product->user_id === $user->id;
+
+                        if ($isBuyer) {
+                            return !$order->finished; // 厳密比較をやめる
+                        }
+
+                        if ($isSeller) {
+                            return !$order->finished || ($order->finished && $order->isNotRatedByUser($user->id));
+                        }
+
+                        return false;
+                    });
         
         $totalUnreadCount = $chatOrders->sum('unread_messages_count');
 

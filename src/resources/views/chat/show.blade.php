@@ -126,12 +126,12 @@
 			</form>
 		</section>
 
-		<!-- 取引終了モーダル -->
+		<!-- 取引終了モーダル（購入者） -->
 <div id="trade-complete-modal" class="modal" style="display:none;">
     <div class="modal-content">
         <h3>取引が完了しました</h3>
 		<p>今回の取引相手はどうでしたか？</p>
-        <form action="{{ route('trade.rate', $order->id) }}" method="POST" id="rating-form">
+        <form action="{{ route('orders.complete', $order->id) }}" method="POST" id="rating-form">
             @csrf
             <div class="star-rating">
                 @for ($i = 5; $i >= 1; $i--)
@@ -143,6 +143,25 @@
         </form>
     </div>
 </div>
+
+<!-- 取引終了モーダル（出品者） -->
+<div id="seller-rating-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>購入者を評価してください</h3>
+        <p>{{ $partner->name }} さんとの取引を評価してください。</p>
+        <form action="{{ route('orders.rate', $order->id) }}" method="POST">
+            @csrf
+            <div class="star-rating">
+                @for ($i = 5; $i >= 1; $i--)
+                    <input type="radio" id="seller-star{{ $i }}" name="rating" value="{{ $i }}" />
+                    <label for="seller-star{{ $i }}">★</label>
+                @endfor
+            </div>
+            <button type="submit" class="btn btn-primary">送信</button>
+        </form>
+    </div>
+</div>
+
 
 	</main>
 </div>
@@ -168,19 +187,23 @@ document.addEventListener('DOMContentLoaded', function () {
 		sessionStorage.removeItem(key);
 	@endif
 });
+</script>
 
+@if ($showRateModal)
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		document.getElementById('seller-rating-modal').style.display = 'block';
+	});
+</script>
+@endif
 
+<script>
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('trade-complete-modal');
     const openBtn = document.getElementById('end-trade-btn');
-    const cancelBtn = document.getElementById('modal-cancel-btn');
 
     openBtn.addEventListener('click', () => {
         modal.style.display = 'block';
-    });
-
-    cancelBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
     });
 
     // モーダル外クリックで閉じる（任意）
@@ -192,7 +215,5 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-
-
 
 @endsection

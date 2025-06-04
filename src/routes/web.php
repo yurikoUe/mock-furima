@@ -8,6 +8,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ExhibitionController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RatingController;
 use Laravel\Fortify\Fortify;
 
 
@@ -31,8 +32,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('{order}/message/{message}', [ChatController::class, 'destroy'])->name('chat.destroy');
     });
 
-    Route::post('/trade/{order}/rate', [TradeController::class, 'rate'])->name('trade.rate');
-
+    // 取引評価
+    Route::prefix('orders')->group(function (){
+        // 購入者が取引完了を押して評価を送信
+        Route::post('{order}/complete', [RatingController::class, 'completeAndRate'])->name('orders.complete');
+        // 出品者が評価を送信
+        Route::post('{order}/rate', [RatingController::class, 'rate'])->name('orders.rate');
+    });
 
     Route::get('/sell', [ExhibitionController::class, 'create'])->name('sell.create');
     Route::post('/sell', [ExhibitionController::class, 'store'])->name('sell.store');

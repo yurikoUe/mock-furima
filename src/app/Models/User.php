@@ -57,6 +57,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ChatMessage::class, 'sender_id');
     }
 
+    // 自分がつけた評価（購入者or出品者として）
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class, 'rater_id');
+    }
+
+    // 自分が受けた評価（購入者or出品者として）
+    public function receivedRatings()
+    {
+        return $this->hasMany(Rating::class, 'ratee_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Rating;
 use App\Models\ChatMessage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -50,8 +51,18 @@ class ChatController extends Controller
     ->with('product')
     ->get();
 	
-    // 自分が購入者かどうかのフラグをビューに渡す
+    // 購入者かどうか
     $isBuyer = $order->user_id === $userId;
+
+    // 出品者かどうか
+    $isSeller = $order->product->user_id === $userId;
+
+    // 出品者で、かつ取引完了済み、かつまだ評価していない場合 → モーダル表示
+    $alreadyRated = Rating::where('order_id', $order->id)
+        ->where('rater_id', $userId)
+        ->exists();
+
+    $showRateModal = $isSeller && $order->finished && !$alreadyRated;
 
 			return view('chat.show', [
 					'order' => $order,
@@ -59,6 +70,7 @@ class ChatController extends Controller
 					'messages' => $messages,
 					'orders' => $sidebarOrders,
           'isBuyer' => $isBuyer,
+          'showRateModal' => $showRateModal, 
 			]);
 	}
 	
