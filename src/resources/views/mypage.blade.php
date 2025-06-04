@@ -15,7 +15,20 @@
                 <img src="{{ asset('storage/images/default-profile-image.png') }}" alt="デフォルトプロフィール画像" class="default-profile">
             @endif
         </div>
-        <p class="mypage-header__name">{{ $user->name }}</p>
+        <div class="mypage-header__user-info">
+            <p class="mypage-header__name">{{ $user->name }}</p>
+            @if(!is_null($averageRating))
+                <div class="user-rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $averageRating)
+                            <span class="star filled">★</span>
+                        @else
+                            <span class="star">☆</span>
+                        @endif
+                    @endfor
+                </div>
+            @endif
+        </div>
     </div>
     <a class="mypage-header__ling" href="{{ route('profile.update') }}">プロフィールを編集</a>
 </div>

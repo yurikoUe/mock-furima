@@ -7,12 +7,27 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Storage;
 
 
 class ProfileController extends Controller
 {
+    public function getAverageRating($userId)
+    {
+        // $userId は評価される側のユーザーID
+        $avg = Rating::where('ratee_id', $userId)->avg('rating');
+
+        if ($avg === null) {
+            // 評価がない場合はnullを返す
+            return null;
+        }
+
+        // 四捨五入
+        return round($avg);
+    }
+
     public function show()
     {
         $user = auth()->user();
@@ -56,7 +71,9 @@ class ProfileController extends Controller
         
         $totalUnreadCount = $chatOrders->sum('unread_messages_count');
 
-        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'chatOrders','totalUnreadCount', 'tab'));
+        $averageRating = $this->getAverageRating($user->id);
+
+        return view('mypage', compact('user', 'sellingProducts', 'purchasedProducts', 'chatOrders','totalUnreadCount', 'tab', 'averageRating'));
     }
 
     public function edit()

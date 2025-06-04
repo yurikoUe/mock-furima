@@ -14,6 +14,13 @@
     gap: 50px;
 }
 
+/* ユーザー名と評価を縦に並べるためのラッパー */
+.mypage-header__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .mypage-header__image img {
     border-radius: 50%;
     max-width: 120px;
@@ -22,6 +29,7 @@
 .mypage-header__name {
     font-size: 30px;
     font-weight: bold;
+    margin: auto;
 }
 
 .mypage-header__ling {
@@ -32,6 +40,31 @@
     border-radius: 10px;
     font-weight: bold;
     border-width: 2px;
+}
+
+/* ---------- 画像左上バッジ（未読件数） ---------- */
+.image-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 9999px;
+    font-weight: bold;
+}
+
+/* ---------- 他者の評価（星マーク） ---------- */
+.star {
+    font-size: 24px;
+    color: #ccc;
+    /* 灰色の星 */
+}
+
+.star.filled {
+    color: gold;
+    /* 塗りつぶし星は金色 */
 }
 
 /* ---------- レスポンシブ：タブレット ---------- */
@@ -161,15 +194,3 @@
     }
 }
 
-/* ---------- 画像左上バッジ（未読件数） ---------- */
-.image-badge {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 9999px;
-    font-weight: bold;
-}
