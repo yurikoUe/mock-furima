@@ -39,17 +39,23 @@ class ChatController extends Controller
 					->get();
 	
 			// サイドバー用の取引一覧（購入者か出品者か関係なく、進行中の取引すべて）
-      $sidebarOrders = Order::where(function ($query) use ($userId) {
-        $query->where('user_id', $userId)  // 自分が購入者
-            ->orWhereHas('product', function ($q) use ($userId) {
-                $q->where('user_id', $userId); // 自分が出品者
-            });
-    })
-    ->where('status', '決済完了')
-    ->where('finished', false)
-    ->where('id', '!=', $order->id)
-    ->with('product')
-    ->get();
+			$sidebarOrders = Order::activeForUser($userId)
+			->where(function ($query) use ($userId) {
+				$query->where('finished', false)
+					->orWhere(function ($q) use ($userId) {
+						$q->where('finished', true)
+						  ->whereHas('product', function ($q2) use ($userId) {
+							  $q2->where('user_id', $userId); // 出品者のみ
+						  })
+						  ->whereDoesntHave('rating', function ($q3) use ($userId) {
+							  $q3->where('rater_id', $userId);
+						  });
+					});
+			})
+			->where('id', '!=', $order->id)
+			->with('product')
+			->get();
+		
 	
     // 購入者かどうか
     $isBuyer = $order->user_id === $userId;

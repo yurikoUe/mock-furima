@@ -48,7 +48,7 @@ class Order extends Model
         return $this->hasMany(Rating::class);
     }
 
-    // 取引中の商品を抽出
+    // 決済完了で自分が購入者か出品者の取引
     public function scopeActiveForUser($query, $userId)
     {
         return $query->where(function ($q) use ($userId) {
@@ -57,7 +57,7 @@ class Order extends Model
                     $q2->where('user_id', $userId);
                 });
             })
-            ->where('status', '決済完了'); //決済完了かつ
+            ->where('status', '決済完了'); //決済完了
     }
 
     // まだ評価していなければtrueを返す
