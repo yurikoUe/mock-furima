@@ -131,7 +131,7 @@
                 </label>
 
                 <button type="submit" class="chat-form__submit-btn">
-                    <img src="{{ asset('send-icon.svg') }}" alt="送信" class="chat-form__submit-icon">
+                    <img src="{{ asset('send-icon.jpg') }}" alt="送信" class="chat-form__submit-icon">
                 </button>
             </form>
         </section>
