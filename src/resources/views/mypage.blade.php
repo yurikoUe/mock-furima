@@ -30,7 +30,7 @@
             @endif
         </div>
     </div>
-    <a class="mypage-header__ling" href="{{ route('profile.update') }}">プロフィールを編集</a>
+    <a class="mypage-header__link" href="{{ route('profile.update') }}">プロフィールを編集</a>
 </div>
 
 <!-- タブメニュー -->

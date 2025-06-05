@@ -12,9 +12,10 @@
     display: flex;
     align-items: center;
     gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-/* ユーザー名と評価を縦に並べるためのラッパー */
 .mypage-header__user-info {
     display: flex;
     flex-direction: column;
@@ -29,17 +30,16 @@
 .mypage-header__name {
     font-size: 30px;
     font-weight: bold;
-    margin: auto;
+    margin: 0;
 }
 
-.mypage-header__ling {
+.mypage-header__link {
     text-decoration: none;
     color: red;
     padding: 10px 20px;
-    border-style: solid;
+    border: 2px solid red;
     border-radius: 10px;
     font-weight: bold;
-    border-width: 2px;
 }
 
 /* ---------- 画像左上バッジ（未読件数） ---------- */
@@ -55,57 +55,14 @@
     font-weight: bold;
 }
 
-/* ---------- 他者の評価（星マーク） ---------- */
+/* ---------- 評価（星） ---------- */
 .star {
     font-size: 24px;
     color: #ccc;
-    /* 灰色の星 */
 }
 
 .star.filled {
     color: gold;
-    /* 塗りつぶし星は金色 */
-}
-
-/* ---------- レスポンシブ：タブレット ---------- */
-@media screen and (max-width: 850px) {
-    .mypage-header__info {
-        text-align: center;
-        gap: 50px;
-    }
-
-    .mypage-header__image img {
-        max-width: 100px;
-    }
-
-    .mypage-header__name {
-        font-size: 24px;
-    }
-}
-
-/* ---------- レスポンシブ：スマホ ---------- */
-@media screen and (max-width: 767px) {
-    .mypage-header {
-        gap: 30px;
-    }
-
-    .mypage-header__info {
-        gap: 20px;
-    }
-
-    .mypage-header__image img {
-        max-width: 100px;
-    }
-
-    .mypage-header__name {
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .mypage-header__ling {
-        padding: 5px 10px;
-        font-size: 18px;
-    }
 }
 
 /* ---------- タブメニュー ---------- */
@@ -134,18 +91,9 @@
     background-color: red;
     color: white;
     font-size: 12px;
-    padding: 4git px 6px;
+    padding: 4px 6px;
     border-radius: 9999px;
     margin-left: 5px;
-}
-
-/* レスポンシブ：スマホ */
-@media screen and (max-width: 767px) {
-    .tabs {
-        margin: 0;
-        padding: 0;
-        justify-content: center;
-    }
 }
 
 /* ---------- 商品カード ---------- */
@@ -180,17 +128,54 @@
     font-size: 16px;
 }
 
-/* レスポンシブ：タブレット (3列) */
+/* ---------- レスポンシブ：タブレット (768px〜850px) ---------- */
 @media screen and (max-width: 850px) {
+    .mypage-header__image img {
+        max-width: 100px;
+    }
+
+    .mypage-header__name {
+        font-size: 24px;
+    }
+
     .tab-content__item {
         width: calc(33.333% - 15px);
     }
 }
 
-/* レスポンシブ：スマホ (2列) */
+/* ---------- レスポンシブ：スマホ (〜767px) ---------- */
 @media screen and (max-width: 767px) {
+    .mypage-header {
+        gap: 30px;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .mypage-header__info {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mypage-header__image img {
+        max-width: 80px;
+    }
+
+    .mypage-header__name {
+        font-size: 18px;
+    }
+
+    .mypage-header__link {
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+
+    .tabs {
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+    }
+
     .tab-content__item {
         width: calc(50% - 15px);
     }
 }
-

@@ -187,24 +187,27 @@
 
 .chat-message__form {
     margin-top: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    width: 100%;
+    margin: 5px;
 }
 
 .chat-message__input {
-    padding: 0.4rem;
+    padding: 0.7rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 100%;
+    font-size: 1.2rem;
 }
 
 .chat-message__save-btn,
 .chat-message__cancel-btn {
-    background-color: #ccc;
+    background-color: white;
     border: none;
-    padding: 0.4rem 1rem;
+    font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
+    color: black
 }
 
 /* 投稿フォーム */
@@ -335,4 +338,153 @@
     cursor: pointer;
     margin: 0.5rem 0.5rem 0.5rem 70%;
     text-align: right;
+}
+
+/* ---------- タブレット対応 ---------- */
+@media screen and (max-width: 850px) {
+    .chat {
+        flex-direction: column;
+    }
+
+    .chat-sidebar {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 1rem;
+    }
+
+    .chat-sidebar__title {
+        display: none;
+    }
+
+    .chat-sidebar__item {
+        margin: 0 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .chat-main {
+        height: auto;
+    }
+
+    .chat-partner {
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .chat-partner__name {
+        font-size: 2rem;
+    }
+
+    .chat-partner__btn {
+        font-size: 1rem;
+        padding: 0.3rem 0.7rem;
+    }
+
+    .chat-product__img {
+        width: 30%;
+        height: auto;
+    }
+
+    .chat-product__name,
+    .chat-product__price {
+        font-size: 2rem;
+    }
+
+    .chat-message__wrapper {
+        max-width: 70%;
+    }
+
+    .chat-message__image {
+        max-width: 80%;
+    }
+
+    .chat-message__name {
+        font-size: 1.2rem;
+    }
+
+    .chat-message__text {
+        font-size: 1.2rem;
+    }
+}
+
+/* ---------- スマホ対応 ---------- */
+@media screen and (max-width: 767px) {
+    .chat-partner__name {
+        font-size: 18px;
+    }
+
+    .chat-product {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .chat-product__name,
+    .chat-product__price {
+        font-size: 18px;
+    }
+
+    .chat-message__wrapper {
+        max-width: 90%;
+    }
+
+    .chat-message__text {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .chat-message__name {
+        font-size: 1rem;
+    }
+
+    .chat-product__img {
+        width: 100%;
+        height: auto;
+    }
+
+    .chat-form__input {
+        font-size: 1rem;
+    }
+
+    .chat-message__input {
+        font-size: 1rem;
+    }
+
+    .chat-message__save-btn,
+    .chat-message__cancel-btn{
+        font-size: 0.85rem;
+    }
+
+    .chat-form__file-label {
+        font-size: 1rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .chat-form__submit-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .rating-modal__submit-btn {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .rating-modal__title {
+        font-size: 1rem;
+    }
+
+    .rating-modal__stars {
+        font-size: 1.5rem;
+    }
+
+    .rating-modal label {
+        font-size: 2rem;
+    }
+
+    .chat-form__submit-btn {
+        padding: 0;
+    }
 }
