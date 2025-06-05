@@ -129,6 +129,14 @@ DB_PASSWORD=laravel_pass
         6. Stripeで決済が確認され次第、「決済完了」になる
 
 
+## 初期ユーザーデータ（UserSeeder）
+
+| 名前       | メールアドレス          | プロフィール画像           | 備考                         |
+|------------|--------------------------|------------------------------|------------------------------|
+| ユーザーA  | usera@example.com        | images/usera.png             | 出品者A（商品id:1~5） |
+| ユーザーB  | userb@example.com        | images/userb.png             | 出品者B（商品id:6~10） |
+| ユーザーC  | userc@example.com        | images/userc.png             | 商品未出品ユーザーC         |
+
 
 ## PHPunitテストの実行について
 
