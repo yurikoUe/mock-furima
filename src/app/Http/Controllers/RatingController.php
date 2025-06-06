@@ -7,6 +7,7 @@ use App\Models\Rating;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderCompletedNotification;
 
 class RatingController extends Controller
 {
@@ -38,13 +39,7 @@ class RatingController extends Controller
         ]);
 
         // 出品者にメール送信
-        $seller = $order->product->user;
-        Mail::to($seller->email)->send(new \App\Mail\OrderCompletedNotification(
-            $user->name, // $buyerName（購入者）
-            $order->product->name, //$productName
-            $order->id, //$orderId
-            $seller->name, //sellerName(出品者)
-        ));
+        $this->notifySeller($order, $user);
 
         return redirect()->route('index')->with('success', '取引が完了し、評価を送信しました。');
 
@@ -75,5 +70,19 @@ class RatingController extends Controller
 
         return redirect()->route('index')->with('success', '評価を送信しました。');
 
+    }
+
+    private function notifySeller(Order $order, $buyer): void
+    {
+        $seller = $order->product->user;
+
+        Mail::to($seller->email)->send(
+            new OrderCompletedNotification(
+                $user->name, // $buyerName（購入者）
+                $order->product->name, //$productName
+                $order->id, //$orderId
+                $seller->name, //sellerName(出品者)
+            )
+        );
     }
 }
