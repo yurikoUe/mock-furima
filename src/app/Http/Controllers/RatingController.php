@@ -78,7 +78,7 @@ class RatingController extends Controller
 
         Mail::to($seller->email)->send(
             new OrderCompletedNotification(
-                $user->name, // $buyerName（購入者）
+                $buyer->name, // $buyerName（購入者）
                 $order->product->name, //$productName
                 $order->id, //$orderId
                 $seller->name, //sellerName(出品者)

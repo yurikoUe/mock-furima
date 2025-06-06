@@ -26,7 +26,7 @@
         <!-- 取引相手情報 -->
         <section class="chat-partner">
             <img src="{{ asset('storage/' . $partner->profile_image) }}" alt="相手のプロフィール画像" class="chat-partner__img">
-            <p class="chat-partner__name">「{{ $partner->name }}」 さんとの取引画面</p>
+            <h1 class="chat-partner__name">「{{ $partner->name }}」 さんとの取引画面</h1>
             @if ($isBuyer)
                 <button type="button" id="end-trade-btn" class="chat-partner__btn">取引を完了する</button>
             @endif

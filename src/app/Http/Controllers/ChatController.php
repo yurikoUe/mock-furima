@@ -102,7 +102,7 @@ class ChatController extends Controller
 				'content' => $validated['content'],
 		]);
 
-		return redirect()->route('chat.show', $order->id);
+		return redirect()->route('chat.show', $order->id)->with('message_sent', true);
 	}
 
 	public function destroy(Order $order, ChatMessage $message)

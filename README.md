@@ -131,11 +131,11 @@ DB_PASSWORD=laravel_pass
 
 ## 初期ユーザーデータ（UserSeeder）
 
-| 名前       | メールアドレス          | プロフィール画像           | 備考                         |
+| 名前       | メールアドレス          | パスワード           | 備考                         |
 |------------|--------------------------|------------------------------|------------------------------|
-| ユーザーA  | usera@example.com        | images/usera.png             | 出品者A（商品id:1~5） |
-| ユーザーB  | userb@example.com        | images/userb.png             | 出品者B（商品id:6~10） |
-| ユーザーC  | userc@example.com        | images/userc.png             | 商品未出品ユーザーC         |
+| ユーザーA  | usera@example.com        | password            | 出品中の商品id:1~5 |
+| ユーザーB  | userb@example.com        | password            | 出品中の商品id:6~10 |
+| ユーザーC  | userc@example.com        | password            | 未出品         |
 
 
 ## PHPunitテストの実行について
